@@ -1,8 +1,8 @@
-Se você caiu de paraquedas aqui e não tem ideia do que é o IEEE UFABC ou o que são e o porque dos scripts Leia essa página.
+Se você caiu de paraquedas aqui e não tem ideia do que é o IEEE UFABC ou o que são e o porque dos scripts, leia essa página.
 
 ## O IEEE UFABC?
 
-IEEE UFABC, lê-se "i três é UFABC", o nome mais conhecido da Ramo Estudantil do IEEE na Universidade Federal do ABC (UFABC), que é uma entidade estudantil voltada para o Desenvolvimento Profissional segundo a Resolução Consuni 143, de 10 de outubro de 2014 que reconhece e classifica institucionalmente as entidades estudantis e comunitárias na UFABC.
+IEEE UFABC, (* lê-se "i três é UFABC" *), o nome mais conhecido da Ramo Estudantil do IEEE na Universidade Federal do ABC (UFABC), que é uma entidade estudantil voltada para o Desenvolvimento Profissional segundo a Resolução Consuni 143, de 10 de outubro de 2014 que reconhece e classifica institucionalmente as entidades estudantis e comunitárias na UFABC.
 
 Os Ramos Estudantis (ou Student Branches) do Instituto de Engenheiros Eletricistas e Eletrônicos (IEEE) são organizações formadas principalmente por alunos de Universidades que são membros do IEEE. O seu principal objetivo é potencializar a participação dos alunos através de atividades extracurriculares, proporcionando assim aos seus membros:
 
