@@ -16,7 +16,7 @@
 - [ ] Criar método de visualização dos calendários.
 - [ ] Definição dos campos.
 - [ ] Definições das Expressões regulares de verificação dos campos de entrada.
-- [ ] Decisão se form em HTML ou em Google Form.
+- [ ] Decisão de form em HTML ou em Google Form.
 
 
 ---------------------------------------------------------------------------
