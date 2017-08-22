@@ -780,11 +780,11 @@ A variavel `idunidade` é escrito a partir do valor extraido e armazenado na var
 Veja que no inicio do algoritimo a variável `idunidade` é definida, mas só tem um valor tribuido quando ela respeita uma das condições de igualdade.
 
 !!! attention ""
-    No algoritimo completo mostrado na seção [Função Recibo](#Função Recibo)  o alguritimo acima é utilizado juntamente com o algoritimo da seção [Extraindo dados da Pasta Adm](#Extraindo dados da Pasta Adm)  que é responsavel por definir o valor de da variavel `numrecibo`.
+    No algoritimo completo mostrado na seção [Função Recibo](#Função-Recibo)  o alguritimo acima é utilizado juntamente com o algoritimo da seção [Extraindo dados da Pasta Adm](#Extraindo-dados-da-Pasta-Adm)  que é responsavel por definir o valor de da variavel `numrecibo`.
 
 #### Extraindo dados da Pasta Adm
 
-Ao criarmos a Pasta Adm na seção [Pasta Administrativ](#Pasta Administrativ)indicamos qual é número que indica o próximo recibo emitido para pegarmos este numéro utilizamos o seguinte algoritimo:
+Ao criarmos a Pasta Adm na seção [Pasta Administrativ](#Pasta-Administrativ)indicamos qual é número que indica o próximo recibo emitido para pegarmos este numéro utilizamos o seguinte algoritimo:
 
 ```js
     var numrecibo;
@@ -810,7 +810,7 @@ Ao criarmos a Pasta Adm na seção [Pasta Administrativ](#Pasta Administrativ)in
 A variável `numrecibo`só tem um valor tribuido quando ela respeita uma das condições de igualdade. Esse valor será igual ao valor extraido pelo comando `getValue` da celula em inidicada pelo comando `getRange(linha,coluna)` , em que o valor a celula A1 seria 1,1, formatado pela função pad (**LINKKKK**) para ter sempre com 4 algoritimos.
 
 !!! attention ""
-    No algoritimo completo mostrado na seção [Função Recibo](#Função Recibo) o alguritimo acima é utilizado juntamente com o algoritimo do  [Tratando os dados extraidos](#Tratando os dados extraidos) que é responsavel por definir o valor de da variavel `idunidade`.
+    No algoritimo completo mostrado na seção [Função Recibo](#Função-Recibo) o alguritimo acima é utilizado juntamente com o algoritimo do  [Tratando os dados extraidos](#Tratando-os-dados-extraidos) que é responsavel por definir o valor de da variavel `idunidade`.
 
 #### Definindo e registrando o ID do Recibo
 
