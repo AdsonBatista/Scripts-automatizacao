@@ -861,7 +861,7 @@ O comando `setValue("valor")` mostrado na linha de código abaixo é responsavel
 
 Para cronstruir o Recibo iremos utilizar o template criado na seção [Doc](#doc)jutamente com os dados extraidos e tratados nos passo anteriories.
 
-Para isso devemos criar uma copia do recibo e pegar o numero de ID dela  `idcopia`, abrir essa e armazenar essa cópia na variável ``docCopia`` para então copiar o texto deste documento na variavel `textoCopia`. Para fazer isso utilizamos as seguintes funções:
+Para isso devemos criar uma copia temporaria do recibo e pegar o numero de ID dela  `idcopia`, abrir essa e armazenar essa cópia na variável ``docCopia`` para então copiar o texto deste documento na variavel `textoCopia`. Para fazer isso utilizamos as seguintes funções:
 
 ```js
 // Cria um recibo temporário, recupera o  e o abre
@@ -893,6 +893,11 @@ Agora utilizamos comando abaixo para pegar o arquivo por meio de seu ID armazena
     var recibo_pdf = DriveApp.getFileById(idCopia).getAs("application/pdf");
 ```
 
+Depois de converter para pdf e o armazenar em uma variavel eu posso deletar o arquivo temporario criado para isso utilizo o comando:
+
+```js
+  DriveApp.getFileById(idCopia).setTrashed(true);
+```
 #### Salvando os Recibos no Driver
 
 Na seção [Acessando os documentos e locais necessários](#acessando_os documentos_e_locais_ _necessarios) definimos as pastas que poderiam ser utilizadas para salvar nosso recibo agora iremos escolher qual pasta iremos salvar. Para isso utilizo o seguinte sequencia de comandos:
@@ -932,18 +937,51 @@ pasta_recibo.createFile(recibo_pdf)
 
     O laço `if` responsável pela escolha das pastas na seção [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) ou os campos que fazem essa função no algoritimo da seção [If Elegante](#if-elegante) devem ser removidos.
 
-#### Construindo o E-mail
+#### Construindo e evniando o E-mail
+
+Um email é composto por Assunto, corpo do e-mail, remetente e destinatários
 ```js
-    var subject = "Recibo IEEE UFABC";
-    var html =
-        '<body>' +
-        '<h2><b>Olá ' + nome_completo + '!' + '</h2></b>' +
-        'Você está recebendo este e-mail pois no dia ' + '<b>' + datarecibo + '</b>' +
-        ' você efetuou um pagamento no valor de <b> ' + valor + ' (' + valorextenso + ') ' + '</b>' + 'referente ao ' + '<b>' + evento + '</b>' + '<br>' +
-        'Seu recibo foi anexado neste email e pode ser identificado pelo ' + '<b>' + idrecibo + '</b>' + '.' +
-        '</body>'
+var html = HtmlService.createTemplateFromFile('rec_email_template');
+    // Escreve as variáveis no template do e-mail
+    html.nome_completo = nome_completo;
+    html.datarecibo = datarecibo;
+    html.valor = valor;
+    html.valorextenso = valorextenso
+    html.evento = evento;
+    html.idrecibo = idrecibo;
+    //html.urlarquivo = urlarquivo;
+    // Fecha o template e pega o modelo e salva na variável htmlBody
+    var htmlBody = html.evaluate().getContent();    
+
+    // Dados do Rementente
     var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
+    // MailApp.sendEmail(destinatariorecibo, subject, body, {name: remetente, attachments: recibo_pdf});
+    MailApp.sendEmail(destinatariorecibo, subject, html, {
+        name: remetente,
+        htmlBody: htmlBody,
+        attachments: recibo_pdf
+    });
+    // envia o email recibo para email do ramo  
+    MailApp.sendEmail(destinatariocanhoto, subject, html, {
+        name: remetente,
+        htmlBody: htmlBody,
+        attachments: recibo_pdf
+    });
 ```
+
+
+??? note "Corpo do e-mail sem utilizar HTML!"
+    ```js
+        var subject = "Recibo IEEE UFABC";
+        var html =
+            '<body>' +
+            '<h2><b>Olá ' + nome_completo + '!' + '</h2></b>' +
+            'Você está recebendo este e-mail pois no dia ' + '<b>' + datarecibo + '</b>' +
+            ' você efetuou um pagamento no valor de <b> ' + valor + ' (' + valorextenso + ') ' + '</b>' + 'referente ao ' + '<b>' + evento + '</b>' + '<br>' +
+            'Seu recibo foi anexado neste email e pode ser identificado pelo ' + '<b>' + idrecibo + '</b>' + '.' +
+            '</body>'
+        var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
+    ```
 
 #### Enviando o E-mail
 
