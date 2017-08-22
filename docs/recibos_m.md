@@ -226,6 +226,44 @@ O valor retornado será o número de recibos já emitidos somado a 1. Veja o Exe
 
 ## Script
 
+O Script usado será criado a partir da Planilha que recebe dados do formulário para isso com a planilha aberta no menu `ferramentas` e escolha a opção `Editor de Scripts`
+
+[![criarscript](imagens/Recibos/sc_criarscript.png)](imagens/Recibos/sc_criarscript.png)
+
+Feito isso uma nova aba semelhante a figura abaixo será aberta, clique no campo "Projetosem título" e defina um nome para o Seu projeto.  
+
+[![pgnovoscript](imagens/Recibos/sc_pgnovoscript.png)](imagens/Recibos/sc_pgnovoscript.png)
+
+Para criar um novo arquivo vá no menu `file` depois em `New` e escolha o tipo de arquivo.
+
+[![novodocscript](imagens/Recibos/sc_novodocscript.png)](imagens/Recibos/sc_novodocscript.png)
+
+## Script Modelo HTML
+
+Crie um arquivo HTML no script utilizando os passos mostrados na seção [Script](#script). Esse arquivo deve ser nomeado como `rec_email_template` e servirá como template do e-mail que será enviado! esse novo arquivo é escrito em HTML o modelo utilizado atualmente é:
+
+``` html
+<!DOCTYPE html>
+<html>
+   <head>
+      <base target="_top">
+   </head>
+   <body>
+      <div>
+        <!-- corpo  -->
+         <h2 class="center-align teal-text">Olá <?= nome_completo ?>!</h2>
+        Você está recebendo este e-mail pois no dia <b> <?= datarecibo  ?></b>
+        você efetuou um pagamento no valor de <b><?= valor ?>(<?= valorextenso ?>)</b>referente ao<b><?= evento ?></b><br>
+        Seu recibo foi anexado neste email e pode ser identificado pelo <b> <?=  idrecibo  ?></b> .
+        </div>
+          <!-- Assinatura  -->
+      <img src="https://drive.google.com/uc?id=0B8CcpExpMKFlZXNLdzJKWU9Wcm8" width="150">
+   </body>
+</html>
+```
+
+## Script Arquivo gs
+
 
 ### Função right(valor)
 
@@ -939,18 +977,16 @@ pasta_recibo.createFile(recibo_pdf)
 
 #### Construindo e evniando o E-mail
 
-Um email é composto por Assunto, corpo do e-mail, remetente e destinatários
+O corpo do e-mail é feito com o template Html feito na seção [Modelo HTML](#modelo-html)
+
 ```js
 var html = HtmlService.createTemplateFromFile('rec_email_template');
-    // Escreve as variáveis no template do e-mail
     html.nome_completo = nome_completo;
     html.datarecibo = datarecibo;
     html.valor = valor;
     html.valorextenso = valorextenso
     html.evento = evento;
     html.idrecibo = idrecibo;
-    //html.urlarquivo = urlarquivo;
-    // Fecha o template e pega o modelo e salva na variável htmlBody
     var htmlBody = html.evaluate().getContent();    
 
     // Dados do Rementente
