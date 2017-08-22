@@ -828,7 +828,7 @@ Função pad(x,y)
 !!! attention ""
     Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
 
-#### Definindo e registrando o  do Recibo
+#### Definindo e registrando o do Recibo
 
 Quando criamos nossa planilha deixamos a coluna "A" definida com . Este será preenchido por um conjunto de caracteres respeitando o seguinte código:
 
@@ -859,6 +859,10 @@ O comando `setValue("valor")` mostrado na linha de código abaixo é responsavel
 
 #### Construindo o Recibo
 
+Para cronstruir o Recibo iremos utilizar o template criado na seção [Doc](#doc)jutamente com os dados extraidos e tratados nos passo anteriories.
+
+Para isso devemos criar uma copia do recibo e pegar o numero de ID dela  `idcopia`, abrir essa e armazenar essa cópia na variável ``docCopia`` para então copiar o texto deste documento na variavel `textoCopia`. Para fazer isso utilizamos as seguintes funções:
+
 ```js
 // Cria um recibo temporário, recupera o  e o abre
     var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(idrecibo).getId();
@@ -867,19 +871,25 @@ O comando `setValue("valor")` mostrado na linha de código abaixo é responsavel
     var docCopia = DocumentApp.openById(idCopia);
 
     // recupera o corpo do recibo
-    var bodyCopia = docCopia.getActiveSection();
+    var textoCopia = docCopia.getActiveSection();
+```
 
-    // faz o replace das variáveis do template, salva e fecha o documento temporario
-    bodyCopia.replaceText("NOME", nome_completo);
-    bodyCopia.replaceText("NUMEROCPF", CPF);
-    bodyCopia.replaceText("VALOR", valor);
-    bodyCopia.replaceText("VALEXTENSO", valorextenso);
-    bodyCopia.replaceText("CURSO", evento);
-    bodyCopia.replaceText("DATARECIBO", datarecibo);
-    bodyCopia.replaceText("RECIBO", idrecibo);
+Agora que temos o texto armazenado na variável `textoCopia` iremos substituir partes deste texto pelo valor das váriaveis correspondentes feito isso iremos salvar e fechar o documento `docCopia`. Para isso utilizamos os seguintes comandos:
+
+```js
+    textoCopia.replaceText("NOME", nome_completo);
+    textoCopia.replaceText("NUMEROCPF", CPF);
+    textoCopia.replaceText("VALOR", valor);
+    textoCopia.replaceText("VALEXTENSO", valorextenso);
+    textoCopia.replaceText("CURSO", evento);
+    textoCopia.replaceText("DATARECIBO", datarecibo);
+    textoCopia.replaceText("RECIBO", idrecibo);
     docCopia.saveAndClose();
+```
 
-    // abre o documento temporario como PDF utilizando o seu 
+Agora utilizamos comando abaixo para pegar o arquivo por meio de seu ID armazenado na variável `idCopia` para converter para PDF e armazenar o PDF na variavel `recibo_pdf`. Com está ultima variavel podemos fazer operações como salva-lo no drive e/ou envia-lo por e-mail.
+
+```js
     var recibo_pdf = DriveApp.getFileById(idCopia).getAs("application/pdf");
 ```
 
@@ -934,6 +944,9 @@ pasta_recibo.createFile(recibo_pdf)
         '</body>'
     var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
 ```
+
+#### Enviando o E-mail
+
 
 ### If Elegante
 
