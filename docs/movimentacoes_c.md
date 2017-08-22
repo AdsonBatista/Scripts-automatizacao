@@ -43,15 +43,15 @@ K - Movimentação, Recibo, Transferência
 
 ## **0.5.0**
 
-- [x] Fazer corpo html em arquivo separado - mov_code.gs.
+- [x] Feitura do corpo html em arquivo separado - mov_code.gs.
 - [x] Criação do arquivo - mail_template.html.
 
 ## **0.6.0**
 
-- [x] Eliminados dos scripts inutilizáveis - javaScript.html.
-- [x] Atualizadas css do tema - mov_form.html.
-- [x] Atualizadas js do tema - javaScript.html.
-- [x] Adicionado Envio apenas se todas questões preenchidas.
+- [x] Eliminação scripts inutilizáveis - javaScript.html.
+- [x] Atualização css do tema - mov_form.html.
+- [x] Atualização js do tema - javaScript.html.
+- [x] Adicição da condição de envio apenas se todas questões preenchidas.
 
 ## **0.7.0**
 
@@ -61,7 +61,7 @@ K - Movimentação, Recibo, Transferência
 
 - [x] Hiperlinks nos arquivos de mail_template.html e Mov_thanks.html - Email e url.
 - [x] Troca do botão type=submit para type=button - mov_form.html - Para evitar criação nova aba.
-- [x] Adicionada mensagem de erro no campo email - mov_form.html.
+- [x] Adiciço de mensagem de erro no campo email - mov_form.html.
 - [x] Remoção de função desnecessária - JavaScript.html.
 - [x] Modificação na permissão da URL - mov_code.gs - agora visualização.
 
@@ -72,10 +72,10 @@ K - Movimentação, Recibo, Transferência
 ## **0.9**
 
 - [x] Limpeza dos códigos - Todos arquivos.
-- [x] Comentar procedimentos - Todos arquivos .
-- [x] Adicionar pattern no Campo E-mail - mov_form.html.
-- [x] Adicionado possibilidade de caixas "modal".
+- [x] Comentários sobre procedimentos - Todos arquivos .
+- [x] Adição de pattern no Campo E-mail - mov_form.html.
+- [x] Adição de possibilidade de caixas "modal".
 - [x] Botão flutuante com menu vertical (antes era horizontal).
-- [x] Corrigido bug do calendário (dropdown não aparecia).
-- [x] Corrigido bug do campo valor (tamanho menor que restantes).
-- [x] Adicionadas referências.
+- [x] Correção bug do calendário (dropdown não aparecia).
+- [x] Correção bug do campo valor (tamanho menor que restantes).
+- [x] Adição de referências.
