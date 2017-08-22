@@ -927,7 +927,7 @@ Para salvar o recibo na pasta correta utilizamos a função abaixo:
 pasta_recibo.createFile(recibo_pdf)
 ```
 
-??? note ""
+??? note "Se voce tiver uma unica pasta!"
     Caso todos os recibos sejam salvos apenas em uma pasta substituimos todas as pastas definidas na seçao [Acessando os documentos e locais necessários](#acessando-os-documentos-e-locais-necessarios) pela função: `#js var pasta_recibo = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");`
 
     O laço `if` responsável pela escolha das pastas na seção [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) ou os campos que fazem essa função no algoritimo da seção [If Elegante](#if-elegante) devem ser removidos.
