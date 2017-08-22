@@ -810,7 +810,7 @@ Ao criarmos a Pasta Adm na seção **LINKKK** indicamos qual é número que indi
 A variável `numrecibo`só tem um valor tribuido quando ela respeita uma das condições de igualdade. Esse valor será igual ao valor extraido pelo comando `getValue` da celula em inidicada pelo comando `getRange(linha,coluna)` , em que o valor a celula A1 seria 1,1, formatado pela função pad (**LINKKKK**) para ter sempre com 4 algoritimos.
 
 !!! attention ""
-    No algoritimo completo mostrado no [Tratando os dados extraidos](### Função Recibo()) o alguritimo acima é utilizado juntamente com o algoritimo do  [Tratando os dados extraidos](#### Tratando os dados extraidos) que é responsavel por definir o valor de da variavel `idunidade`.
+    No algoritimo completo mostrado na seção [Função Recibo()](#Função Recibo()) o alguritimo acima é utilizado juntamente com o algoritimo do  [Tratando os dados extraidos](#Tratando os dados extraidos) que é responsavel por definir o valor de da variavel `idunidade`.
 
 #### Definindo e registrando o ID do Recibo
 
