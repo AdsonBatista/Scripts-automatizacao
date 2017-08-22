@@ -691,7 +691,7 @@ As variáveis `plan_recibos` e `plan_adm` pegam a planilha ativa e selecionam re
 
     O comando `getSheetByName("Nome da pasta")` poderia ser substituido pelo comando `getSheets()["posição da pasta"]` sendo que a primeira pasta é tem a posição 0
 
-A seguir adicionamos as variáveis que indicarão todas as possiveis pastas que para salvar meus recibos. O método utilizado para escolher qual destas pastas será utilizada para salvar o arquivo você pode ver na seção [Salvando Recibo no Driver](#salvando-recibo-no-driver).
+A seguir adicionamos as variáveis que indicarão todas as possiveis pastas que para salvar meus recibos. O método utilizado para escolher qual destas pastas será utilizada para salvar o arquivo você pode ver na seção [Salvando os recibos no Driver](#salvando-recibo-no-driver).
 
 ```js
     var pasta_ramo = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
@@ -796,7 +796,7 @@ A variavel `idunidade` é escrito a partir do valor extraido e armazenado na var
 Veja que no inicio do algoritimo a variável `idunidade` é definida, mas só tem um valor tribuido quando ela respeita uma das condições de igualdade.
 
 !!! attention ""
-    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando Recibo no Driver](#salvando-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
+    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
 
 #### Extraindo dados da Pasta Adm
 
@@ -826,7 +826,7 @@ Ao criarmos a Pasta Adm na seção [Pasta Administrativa](#pasta-administrativa)
 A variável `numrecibo`só tem um valor tribuido quando ela respeita uma das condições de igualdade. Esse valor será igual ao valor extraido pelo comando `getValue` da celula em inidicada pelo comando `getRange(linha,coluna)` , em que o valor a celula A1 seria 1,1, formatado pela [Função pad(x,y)](#funcao-padxy) para ter sempre com 4 algoritimos.
 Função pad(x,y)
 !!! attention ""
-    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando Recibo no Driver](#salvando-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
+    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
 
 #### Definindo e registrando o  do Recibo
 
@@ -883,7 +883,7 @@ O comando `setValue("valor")` mostrado na linha de código abaixo é responsavel
     var recibo_pdf = DriveApp.getFileById(idCopia).getAs("application/pdf");
 ```
 
-#### Salvando Recibo no Driver
+#### Salvando os Recibos no Driver
 
 Na seção [Acessando os documentos e locais necessários](#acessando_os documentos_e_locais_ _necessarios) definimos as pastas que poderiam ser utilizadas para salvar nosso recibo agora iremos escolher qual pasta iremos salvar. Para isso utilizo o seguinte sequencia de comandos:
 
@@ -909,7 +909,7 @@ Na seção [Acessando os documentos e locais necessários](#acessando_os documen
 ```
 
 !!! attention ""
-    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando Recibo no Driver](#salvando-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
+    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
 
 Para salvar o recibo na pasta correta utilizamos a função abaixo:
 
@@ -920,7 +920,7 @@ pasta_recibo.createFile(recibo_pdf)
 ??? note ""
     Caso todos os recibos sejam salvos apenas em uma pasta substituimos todas as pastas definidas na seçao [Acessando os documentos e locais necessários](#acessando-os-documentos-e-locais-necessarios) pela função: `#js var pasta_recibo = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");`
 
-    O laço `if` responsável pela escolha das pastas na seção [Salvando Recibo no Driver](#salvando-recibos-no-driver) ou os campos que fazem essa função no algoritimo da seção [If Elegante](#if-elegante) devem ser removidos.
+    O laço `if` responsável pela escolha das pastas na seção [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) ou os campos que fazem essa função no algoritimo da seção [If Elegante](#if-elegante) devem ser removidos.
 
 #### Construindo o E-mail
 ```js
@@ -937,7 +937,7 @@ pasta_recibo.createFile(recibo_pdf)
 
 ### If Elegante
 
-Nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando Recibo no Driver](#salvando-recibos-no-driver) definimos as variaveis idunidade, numrecibo e pasta_recibo por meio de um laço `if` a estrutura utilizada nestes 3 laços foi a mesma então para maior elegância do código no algoritimo completo que mostrado na seção [Função Recibo](#funcao-recibo) utilizamos a versão mostrada abaixo;
+Nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) definimos as variaveis idunidade, numrecibo e pasta_recibo por meio de um laço `if` a estrutura utilizada nestes 3 laços foi a mesma então para maior elegância do código no algoritimo completo que mostrado na seção [Função Recibo](#funcao-recibo) utilizamos a versão mostrada abaixo;
 
 ``` js
     var idunidade;
