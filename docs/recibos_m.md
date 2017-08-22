@@ -674,18 +674,248 @@ Está função é a função que trata os dados do formulário para gerar o reci
 
 #### Acessando os documentos necessários.
 
-A primeira coisa que devemos fazer em nossa função é definir quais são os documentos que vamos utilizar durante o processo.
-
-Crio 3 variáveis a primeira delas é `recibotemplateId` contem o Id uníco de um do meu arquivo de template criado anteriomente. As variáveis `ss` e `sheet` pegam a planilha ativa e selecionam respectivamente as pastas de trabalho "Recibos" e "Pasta adm". 
-
-Ou seja quando eu chamar a variavel `ss` ou `sheet` eu estou chamando abrindo essa pasta de trabalho.
+A primeira coisa que devemos fazer em nossa função é definir quais são os documentos que vamos utilizar durante o processo. 
 
 ``` js
     var recibotemplateId = "14Zlj5zwYyWHhAUnBG9dMFYTzeClIa_xvayxJsB8k_Os"
-    var ss = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Recibos")
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Pasta adm")
+    var past_recibos = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Recibos")
+    var past_adm = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Pasta adm")
 ```
 
-!!! note ""
-    No nosso caso pegar uma planilha ativa é um metódo funcional, pois o Google Form ativa uma planilha para escrever os dados quando recebe os dados e nos estaremos utilizando justamente essa planilha para trabalhar com os dados.
+Foram criadas 3 variáveis a primeira delas é `recibotemplateId` contém o Id unico de um do meu arquivo de template criado anteriomente. 
 
+As variáveis `plan_recibos` e `plan_adm` pegam a planilha ativa e selecionam respectivamente as pastas de trabalho "Recibos" e "Pasta adm". Ou seja quando eu chamar a variavel `plan_recibos` ou `past_adm` eu estou chamando abrindo a pasta de trabalho correspondente.
+
+!!! note ""
+    No nosso caso pegar uma planilha ativa é um metódo funcional, pois o Google Form ativa uma planilha para escrever os dados quando recebe os dados e nos estaremos utilizando justamente essa planilha para trabalhar com os dados. Se desejar buscar a planilha pelo seu Id substitua `getActiveSpreadsheet()` por `openById(Id da planilha)`
+
+    O comando `getSheetByName("Nome da pasta")` poderia ser substituido pelo comando `getSheets()["posição da pasta"]` sendo que a primeira pasta é tem a posição 0
+
+#### Extraindo dados da Pasta Recibos.
+
+Depois de indicar quais serão documentos vamos trabalhar devemos pegar os dados das planilhas para isso utilizamos aos seguintes comandos:
+
+```js
+    var dados_recibos = plan_recibos.getDataRange().getValues();
+    var ultimaLinha = plan_recibos.getLastRow() - 1;
+```
+
+A variavel `dados_recibos` pega toda os valores preenchidos na pasta de trabalho `plan_recibos` essas variáveis são quardadas em vetores numerados em que o vetor "0" armazena os dados da linha 1 da planilha. A variável ultima linha ela nos dá a ultima linha preenchida pasta de trabalho.
+
+!!! important ""
+    O comando `getLastRow()` me retorna um número, este numéro indica a ultima linha em branco da tabela de dados! Como este comando retorna um número eu posso fazer operações matemáticas com ele. Então para selecionar a ultima linha preenchida na variável ultima linha eu subtrai "um" deste número.
+
+Ao seguirmos os passos acima transformamos nossa tabela de dados em uma Matriz de dados. Para extrair os dados da nossa matriz utilizamos o comando `matriz de dados[linha][coluna]`em que a celula A1 seria indicada pela linha 0 e coluna 0.
+
+Os comandos abaixo se aplicados em uma planilha como a criada anteriormente guardam em suas variaveis os respectivos dados da ultima linha preenchida: Data do recibo, Evento, Unidade responsável, Nome completo, CPF, Valor pago, Ano da transação, Mês da transaçao e o e-mail registrado no formulário.
+
+```js
+// extrair dados
+    var datarecibo = dados_recibos[ultimaLinha][2];
+    var evento = dados_recibos[ultimaLinha][4];
+    var unidade = dados_recibos[ultimaLinha][5];
+    var nome_completo = dados_recibos[ultimaLinha][6];
+    var CPF =dados_recibos[ultimaLinha][7];
+    var valor = dados_recibos[ultimaLinha][10];
+    var ano = dados_recibos[ultimaLinha][11];
+    var mes = dados_recibos[ultimaLinha][12];
+    var destinatariorecibo = dados_recibos[ultimaLinha][13];
+```
+
+#### Tratando os dados extraidos
+
+Para melhor efeito visual ou necessidade alguns dados devem ser tratados para isso utilizamos os seguintes algoritimos:
+
+```js
+    if (CPF.lenght != 11) {
+        CPF = '0'.concat(CPF);
+    }
+    CPF = CPF.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    ano = ano.toString().right(2);
+    var valorextenso = Extenso(valor);
+```
+
+O primeiro `if` é responsavel por verificar se o CPF é uma string de 11 casas. caso não seja ele adiciona um 0 a esqueda. Posteriormente o CPF é formatado para o formato 123.456.789-11 por meio da expressão regular do algoritmo.
+
+!!! note ""
+    O CPF é armazenado como um número na planilha. Alguns CPF's iniciam com 0 então nestes casos o CPF ficaria com 10 algarismos. Para solucionar este problema o algoritmo transforma o CPF numa string verifica se ele tem 11 caracteres se não tiver adiciona um 0 a esqueda.
+
+```js
+    ano = ano.toString().right(2);
+  
+```
+
+A variavel `ano` é um numéro de 4 digitos nete campo ela é transformada numa string e posteriormente dois caracteres da direta são armazenados
+
+```js  
+  var valorextenso = Extenso(valor);
+```
+
+A variavel `valorextenso` é a string que contém o numéro do campo "valor" escrito na sua forma extensa.
+
+
+A variavel `idunidade` é escrito a partir do valor extraido e armazenado na variável `unidade`. Para determinar qual valor deve ser escrito é utilizada a seguinte função:
+
+```js
+    var idunidade;
+    if (unidade == "Ramo") {
+        idunidade = "00";
+    } else if (unidade == "AESS") {
+        idunidade = "01";
+    } else if (unidade == "CS") {
+        idunidade = "02";
+    } else if (unidade == "CPMT") {
+        idunidade = "03";
+    } else if (unidade == "EMBS") {
+        idunidade = "04";
+    } else if (unidade == "PES") {
+        idunidade = "05";
+    } else if (unidade == "RAS") {
+        idunidade = "06";
+    } else if (unidade == "TEMS") {
+        idunidade = "07";
+    }
+```
+
+Veja que no inicio do algoritimo a variável `idunidade` é definida, mas só tem um valor tribuido quando ela respeita uma das condições de igualdade.
+
+!!! attention ""
+    No algoritimo completo mostrado no **LINKKKK** o alguritimo acima é utilizado juntamente com o algoritimo do  **LINKKKK** que é responsavel por definir o valor de da variavel `numrecibo`.
+
+#### Extraindo dados da Pasta Adm
+
+Ao criarmos a Pasta Adm na seção **LINKKK** indicamos qual é número que indica o próximo recibo emitido para pegarmos este numéro utilizamos o seguinte algoritimo:
+
+```js
+    var numrecibo;
+    if (unidade == "Ramo") {
+        numrecibo = pad(past_adm.getRange(2, 3).getValue(), 4);
+    } else if (unidade == "AESS") {
+        numrecibo = pad(past_adm.getRange(3, 3).getValue(), 4);
+    } else if (unidade == "CS") {
+        numrecibo = pad(past_adm.getRange(4, 3).getValue(), 4);
+    } else if (unidade == "CPMT") {
+        numrecibo = pad(past_adm.getRange(5, 3).getValue(), 4);
+    } else if (unidade == "EMBS") {
+        numrecibo = pad(past_adm.getRange(6, 3).getValue(), 4);
+    } else if (unidade == "PES") {
+        numrecibo = pad(past_adm.getRange(7, 3).getValue(), 4);
+    } else if (unidade == "RAS") {
+        numrecibo = pad(past_adm.getRange(8, 3).getValue(), 4);
+    } else if (unidade == "TEMS") {
+        numrecibo = pad(past_adm.getRange(9, 3).getValue(), 4);
+    }
+```
+
+A variável `numrecibo`só tem um valor tribuido quando ela respeita uma das condições de igualdade. Esse valor será igual ao valor extraido pelo comando `getValue` da celula em inidicada pelo comando `getRange(linha,coluna)` , em que o valor a celula A1 seria 1,1, formatado pela função pad (**LINKKKK**) para ter sempre com 4 algoritimos.
+
+!!! attention ""
+    No algoritimo completo mostrado no **LINKKKK** o alguritimo acima é utilizado juntamente com o algoritimo do  **LINKKKK** que é responsavel por definir o valor de da variavel `idunidade`.
+
+#### Definindo e registrando o ID do Recibo
+
+Quando criamos nossa planilha deixamos a coluna "A" definida com ID. Este será preenchido por um conjunto de caracteres respeitando o seguinte código:
+
+``` markdown  
+O ID do arquivo é CPmm0000yyTK em que:
+CP - Unidade em código numérico
+mm - Mês da movimentação
+0000 - Numero da movimentação
+yy - Ano da movimentação
+t - **E**ntrada ou **S**aída
+K - **M**ovimentação, **R**ecibo, **T**ransferência
+```
+
+A variavel `idrecibo` para este algoritimo é definida definidada pela concatenação de variaveis como é mostrado no algorimo abaixo.
+
+```js
+    var idrecibo = idunidade + mes + numrecibo + ano + "ER";
+```
+
+O comando `setValue("valor")` mostrado na linha de código abaixo é responsavel por escrever o `idrecibo` na primeira coluna da linha que estamos trabalhando.
+
+```js
+   dados_recibos.getRange(ultimaLinha+1, 1).setValue(idrecibo);
+```
+
+!!! attention ""
+    Comando getRange(linha, coluna) tem a celula "A1" como linha 1 e coluna 1 diferentemente do que foi considerado na seção **Extraindo dados da Pasta Recibos**. A soma de uma unidade (`+1`)   no campo referente a linha é para "corrigir" está caracterisitica.
+
+#### Construindo e Salvando o Recibo
+
+```js
+// Cria um recibo temporário, recupera o ID e o abre
+    var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(idrecibo).getId();
+
+    // var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(recibotempDoc +'_' + id_recibo + '_' + nome_completo).getId();
+    var docCopia = DocumentApp.openById(idCopia);
+
+    // recupera o corpo do recibo
+    var bodyCopia = docCopia.getActiveSection();
+
+    // faz o replace das variáveis do template, salva e fecha o documento temporario
+    bodyCopia.replaceText("NOME", nome_completo);
+    bodyCopia.replaceText("NUMEROCPF", CPF);
+    bodyCopia.replaceText("VALOR", valor);
+    bodyCopia.replaceText("VALEXTENSO", valorextenso);
+    bodyCopia.replaceText("CURSO", evento);
+    bodyCopia.replaceText("DATARECIBO", datarecibo);
+    bodyCopia.replaceText("IDRECIBO", idrecibo);
+    docCopia.saveAndClose();
+
+    // abre o documento temporario como PDF utilizando o seu ID
+    var recibo_pdf = DriveApp.getFileById(idCopia).getAs("application/pdf");
+```
+
+#### Salvando Recibo no Driver
+```js
+    //Pastas Drive para Salvar recibos
+    var folderramoID = "0B8CcpExpMKFlZElETVFjOGd0elk";
+    var folderAESSID = "0B8CcpExpMKFlZElETVFjOGd0elk";
+    var folderCSID = "0B8CcpExpMKFlZElETVFjOGd0elk"
+    var folderCPMTID = "0B8CcpExpMKFlZElETVFjOGd0elk"
+    var folderEMBSID = "0B8CcpExpMKFlZElETVFjOGd0elk"
+    var folderPESID = "0B8CcpExpMKFlZElETVFjOGd0elk"
+    var folderRASID = "0B8CcpExpMKFlZElETVFjOGd0elk"
+    var folderTEMSID = "0B8CcpExpMKFlZElETVFjOGd0elk"
+    var folder_recibo_CS = DriveApp.getFolderById(folderCSID);
+    var folder_recibo_CPMT = DriveApp.getFolderById(folderCPMTID);
+    var folder_recibo_EMBS = DriveApp.getFolderById(folderEMBSID);
+    var folder_recibo_PES = DriveApp.getFolderById(folderPESID);
+    var folder_recibo_RAS = DriveApp.getFolderById(folderRASID);
+    var folder_recibo_TEMS = DriveApp.getFolderById(folderTEMSID);
+    var folder_recibo_ramo = DriveApp.getFolderById(folderramoID);
+    var folder_recibo_AESS = DriveApp.getFolderById(folderAESSID);
+
+    //salva pdf na pasta do ID
+    if (unidade == "Ramo") {
+        folder_recibo_ramo.createFile(recibo_pdf)
+    } else if (unidade == "AESS") {
+        folder_recibo_AESS.createFile(recibo_pdf)
+    } else if (unidade == "CS") {
+        folder_recibo_CS.createFile(recibo_pdf)
+    } else if (unidade == "CPMT") {
+        folder_recibo_CPMT.createFile(recibo_pdf)
+    } else if (unidade == "EMBS") {
+        folder_recibo_EMBS.createFile(recibo_pdf)
+    } else if (unidade == "PES") {
+        folder_recibo_PES.createFile(recibo_pdf)
+    } else if (unidade == "RAS") {
+        folder_recibo_RAS.createFile(recibo_pdf)
+    } else if (unidade == "TEMS") {
+        folder_recibo_TEMS.createFile(recibo_pdf)
+    }
+```
+
+#### Construindo o E-mail
+```js
+    var subject = "Recibo IEEE UFABC";
+    var html =
+        '<body>' +
+        '<h2><b>Olá ' + nome_completo + '!' + '</h2></b>' +
+        'Você está recebendo este e-mail pois no dia ' + '<b>' + datarecibo + '</b>' +
+        ' você efetuou um pagamento no valor de <b> ' + valor + ' (' + valorextenso + ') ' + '</b>' + 'referente ao ' + '<b>' + evento + '</b>' + '<br>' +
+        'Seu recibo foi anexado neste email e pode ser identificado pelo ID' + '<b>' + idrecibo + '</b>' + '.' +
+        '</body>'
+    var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
+``` 
