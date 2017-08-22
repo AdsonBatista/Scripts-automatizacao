@@ -152,15 +152,15 @@ Troque o nome da sua pasta de trabalho para "Recibos", para fazer isso clique co
 
 [![renomearplanilha](imagens/Recibos/cr_renomearplanilha.png)](imagens/Recibos/cr_renomearplanilha.png)
 
-### Campo ID
+### Campo 
 Vá insira uma nova coluna a esquerda da coluna "A" (clique na celula "A" com botão direito e vá em incerir coluna à esquerda)
 
-[![campoID](imagens/Recibos/cr_campoID.png)](imagens/Recibos/cr_campoID.png)
+[![campo](imagens/Recibos/cr_campo.png)](imagens/Recibos/cr_campo.png)
 
 
-Na nova A1 agora vazia escreva a palavra "ID". Sua nova planilha deve ficar assim:
+Na nova A1 agora vazia escreva a palavra "". Sua nova planilha deve ficar assim:
 
-[![resultadocampoID](imagens/Recibos/resultadocampoID.png)](imagens/Recibos/resultadocampoID.png)
+[![resultadocampo](imagens/Recibos/resultadocampo.png)](imagens/Recibos/resultadocampo.png)
 
 ### Data e Hora
 Crie uma nova coluna C de forma que a coluna B seja o "Carimbo de data/hora" e a coluna "D" seja a "Digite a senha de acesso:" na selula B1 digite a segunte formula:
@@ -243,7 +243,7 @@ var texto = exemplo
 texto.right(3);
 ```
 
-### Funçao pad(x,y)
+### Função pad(x,y)
 ```js
 function pad(number, length) {
     var str = '' + number;
@@ -481,7 +481,7 @@ Está função é a função que trata os dados do formulário para gerar o reci
 ??? note "Abra para ver o código da função completo"
     ``` js
     function send_Rec_Email() {
-        // ID do modelo recibo no Google Docs
+        //  do modelo recibo no Google Docs
         var recibotemplateId = "14Zlj5zwYyWHhAUnBG9dMFYTzeClIa_xvayxJsB8k_Os"
         
         // Carrega planilha ativa
@@ -533,7 +533,7 @@ Está função é a função que trata os dados do formulário para gerar o reci
         
         // Teste id recibo
         var range;
-        // Define um ID para cada unidade.
+        // Define um  para cada unidade.
         var idunidade;
         // Busca na planilha uma célula específica (neste caso o número do recibo).
         // range = sheet.getRange(linha,coluna);
@@ -569,10 +569,10 @@ Está função é a função que trata os dados do formulário para gerar o reci
         // Chama a função "right" para pegar os 2 últimos digitos da data preenchido no formulário.
         var ano = ano.toString().right(2);
         
-        // Monta o ID do Recibo
+        // Monta o  do Recibo
         var idrecibo = idunidade + mes + numrecibo + ano + "ER";
         
-        // escreve na planilha "Recibos" o ID do recibo
+        // escreve na planilha "Recibos" o  do recibo
         ss.getSheets()[0].getRange(ultimaLinha+1, 1).setValue(idrecibo);
         
         // defino destinatario do Canhoto - Fixo 
@@ -588,13 +588,13 @@ Está função é a função que trata os dados do formulário para gerar o reci
             '<h2><b>Olá ' + nome_completo + '!' + '</h2></b>' +
             'Você está recebendo este e-mail pois no dia ' + '<b>' + datarecibo + '</b>' +
             ' você efetuou um pagamento no valor de <b> ' + valor + ' (' + valorextenso + ') ' + '</b>' + 'referente ao ' + '<b>' + evento + '</b>' + '<br>' +
-            'Seu recibo foi anexado neste email e pode ser identificado pelo ID' + '<b>' + idrecibo + '</b>' + '.' +
+            'Seu recibo foi anexado neste email e pode ser identificado pelo ' + '<b>' + idrecibo + '</b>' + '.' +
             '</body>'
         
         // Dados do Rementente
         var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
         
-        // Cria um recibo temporário, recupera o ID e o abre
+        // Cria um recibo temporário, recupera o  e o abre
         var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(idrecibo).getId();
         
         // var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(recibotempDoc +'_' + id_recibo + '_' + nome_completo).getId();
@@ -610,31 +610,31 @@ Está função é a função que trata os dados do formulário para gerar o reci
         bodyCopia.replaceText("VALEXTENSO", valorextenso);
         bodyCopia.replaceText("CURSO", evento);
         bodyCopia.replaceText("DATARECIBO", datarecibo);
-        bodyCopia.replaceText("IDRECIBO", idrecibo);
+        bodyCopia.replaceText("RECIBO", idrecibo);
         docCopia.saveAndClose();
         
-        // abre o documento temporario como PDF utilizando o seu ID
+        // abre o documento temporario como PDF utilizando o seu 
         var recibo_pdf = DriveApp.getFileById(idCopia).getAs("application/pdf");
         
         //Pastas Drive para Salvar recibos
-        var folderramoID = "0B8CcpExpMKFlZElETVFjOGd0elk";
-        var folderAESSID = "0B8CcpExpMKFlZElETVFjOGd0elk";
-        var folderCSID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folderCPMTID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folderEMBSID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folderPESID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folderRASID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folderTEMSID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folder_recibo_CS = DriveApp.getFolderById(folderCSID);
-        var folder_recibo_CPMT = DriveApp.getFolderById(folderCPMTID);
-        var folder_recibo_EMBS = DriveApp.getFolderById(folderEMBSID);
-        var folder_recibo_PES = DriveApp.getFolderById(folderPESID);
-        var folder_recibo_RAS = DriveApp.getFolderById(folderRASID);
-        var folder_recibo_TEMS = DriveApp.getFolderById(folderTEMSID);
-        var folder_recibo_ramo = DriveApp.getFolderById(folderramoID);
-        var folder_recibo_AESS = DriveApp.getFolderById(folderAESSID);
+        var folderramo = "0B8CcpExpMKFlZElETVFjOGd0elk";
+        var folderAESS = "0B8CcpExpMKFlZElETVFjOGd0elk";
+        var folderCS = "0B8CcpExpMKFlZElETVFjOGd0elk"
+        var folderCPMT = "0B8CcpExpMKFlZElETVFjOGd0elk"
+        var folderEMBS = "0B8CcpExpMKFlZElETVFjOGd0elk"
+        var folderPES = "0B8CcpExpMKFlZElETVFjOGd0elk"
+        var folderRAS = "0B8CcpExpMKFlZElETVFjOGd0elk"
+        var folderTEMS = "0B8CcpExpMKFlZElETVFjOGd0elk"
+        var folder_recibo_CS = DriveApp.getFolderById(folderCS);
+        var folder_recibo_CPMT = DriveApp.getFolderById(folderCPMT);
+        var folder_recibo_EMBS = DriveApp.getFolderById(folderEMBS);
+        var folder_recibo_PES = DriveApp.getFolderById(folderPES);
+        var folder_recibo_RAS = DriveApp.getFolderById(folderRAS);
+        var folder_recibo_TEMS = DriveApp.getFolderById(folderTEMS);
+        var folder_recibo_ramo = DriveApp.getFolderById(folderramo);
+        var folder_recibo_AESS = DriveApp.getFolderById(folderAESS);
         
-        //salva pdf na pasta do ID
+        //salva pdf na pasta do 
         if (unidade == "Ramo") {
             folder_recibo_ramo.createFile(recibo_pdf)
         } else if (unidade == "AESS") {
@@ -672,7 +672,7 @@ Está função é a função que trata os dados do formulário para gerar o reci
     }
     ```
 
-#### Acessando os documentos necessários.
+#### Acessando os documentos e locais necessários.
 
 A primeira coisa que devemos fazer em nossa função é definir quais são os documentos que vamos utilizar durante o processo. 
 
@@ -690,6 +690,22 @@ As variáveis `plan_recibos` e `plan_adm` pegam a planilha ativa e selecionam re
     No nosso caso pegar uma planilha ativa é um metódo funcional, pois o Google Form ativa uma planilha para escrever os dados quando recebe os dados e nos estaremos utilizando justamente essa planilha para trabalhar com os dados. Se desejar buscar a planilha pelo seu Id substitua `getActiveSpreadsheet()` por `openById(Id da planilha)`
 
     O comando `getSheetByName("Nome da pasta")` poderia ser substituido pelo comando `getSheets()["posição da pasta"]` sendo que a primeira pasta é tem a posição 0
+
+A seguir adicionamos as variáveis que indicarão todas as possiveis pastas que para salvar meus recibos. O método utilizado para escolher qual destas pastas será utilizada para salvar o arquivo você pode ver na seção [Salvando Recibo no Driver](#salvando-recibo-no-driver).
+
+```js
+    var pasta_ramo = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+    var pasta_AESS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+    var pasta_CS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+    var pasta_CPMT = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+    var pasta_EMBS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+    var pasta_PES = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+    var pasta_RAS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+    var pasta_TEMS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+```
+
+!!! note ""
+    O comando `getFolderById("ID da pasta")` poderia ser substituido pelo comando `getFoldersByName("Nome da Pasta")`. O primeiro vai exatamente na pasta com aquele ID o segundo ficará varendo o driver atrás do de uma pasta com aquele nome.
 
 #### Extraindo dados da Pasta Recibos.
 
@@ -780,7 +796,7 @@ A variavel `idunidade` é escrito a partir do valor extraido e armazenado na var
 Veja que no inicio do algoritimo a variável `idunidade` é definida, mas só tem um valor tribuido quando ela respeita uma das condições de igualdade.
 
 !!! attention ""
-    No algoritimo completo mostrado na seção [Função Recibo](#função-recibo)  o alguritimo acima é utilizado juntamente com o algoritimo da seção [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm)  que é responsavel por definir o valor de da variavel `numrecibo`.
+    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando Recibo no Driver](#salvando-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
 
 #### Extraindo dados da Pasta Adm
 
@@ -807,17 +823,17 @@ Ao criarmos a Pasta Adm na seção [Pasta Administrativa](#pasta-administrativa)
     }
 ```
 
-A variável `numrecibo`só tem um valor tribuido quando ela respeita uma das condições de igualdade. Esse valor será igual ao valor extraido pelo comando `getValue` da celula em inidicada pelo comando `getRange(linha,coluna)` , em que o valor a celula A1 seria 1,1, formatado pela função pad (**LINKKKK**) para ter sempre com 4 algoritimos.
-
+A variável `numrecibo`só tem um valor tribuido quando ela respeita uma das condições de igualdade. Esse valor será igual ao valor extraido pelo comando `getValue` da celula em inidicada pelo comando `getRange(linha,coluna)` , em que o valor a celula A1 seria 1,1, formatado pela [Função pad(x,y)](#funcao-padxy) para ter sempre com 4 algoritimos.
+Função pad(x,y)
 !!! attention ""
-    No algoritimo completo mostrado na seção [Função Recibo](#função-recibo) o alguritimo acima é utilizado juntamente com o algoritimo do  [Tratando os dados extraidos](#tratando-os-dados-extraidos) que é responsavel por definir o valor de da variavel `idunidade`.
+    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando Recibo no Driver](#salvando-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
 
-#### Definindo e registrando o ID do Recibo
+#### Definindo e registrando o  do Recibo
 
-Quando criamos nossa planilha deixamos a coluna "A" definida com ID. Este será preenchido por um conjunto de caracteres respeitando o seguinte código:
+Quando criamos nossa planilha deixamos a coluna "A" definida com . Este será preenchido por um conjunto de caracteres respeitando o seguinte código:
 
 ``` markdown  
-O ID do arquivo é CPmm0000yyTK em que:
+O  do arquivo é CPmm0000yyTK em que:
 CP - Unidade em código numérico
 mm - Mês da movimentação
 0000 - Numero da movimentação
@@ -841,10 +857,10 @@ O comando `setValue("valor")` mostrado na linha de código abaixo é responsavel
 !!! attention ""
     Comando getRange(linha, coluna) tem a celula "A1" como linha 1 e coluna 1 diferentemente do que foi considerado na seção **Extraindo dados da Pasta Recibos**. A soma de uma unidade (`+1`)   no campo referente a linha é para "corrigir" está caracterisitica.
 
-#### Construindo e Salvando o Recibo
+#### Construindo o Recibo
 
 ```js
-// Cria um recibo temporário, recupera o ID e o abre
+// Cria um recibo temporário, recupera o  e o abre
     var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(idrecibo).getId();
 
     // var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(recibotempDoc +'_' + id_recibo + '_' + nome_completo).getId();
@@ -860,52 +876,51 @@ O comando `setValue("valor")` mostrado na linha de código abaixo é responsavel
     bodyCopia.replaceText("VALEXTENSO", valorextenso);
     bodyCopia.replaceText("CURSO", evento);
     bodyCopia.replaceText("DATARECIBO", datarecibo);
-    bodyCopia.replaceText("IDRECIBO", idrecibo);
+    bodyCopia.replaceText("RECIBO", idrecibo);
     docCopia.saveAndClose();
 
-    // abre o documento temporario como PDF utilizando o seu ID
+    // abre o documento temporario como PDF utilizando o seu 
     var recibo_pdf = DriveApp.getFileById(idCopia).getAs("application/pdf");
 ```
 
 #### Salvando Recibo no Driver
-```js
-    //Pastas Drive para Salvar recibos
-    var folderramoID = "0B8CcpExpMKFlZElETVFjOGd0elk";
-    var folderAESSID = "0B8CcpExpMKFlZElETVFjOGd0elk";
-    var folderCSID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-    var folderCPMTID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-    var folderEMBSID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-    var folderPESID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-    var folderRASID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-    var folderTEMSID = "0B8CcpExpMKFlZElETVFjOGd0elk"
-    var folder_recibo_CS = DriveApp.getFolderById(folderCSID);
-    var folder_recibo_CPMT = DriveApp.getFolderById(folderCPMTID);
-    var folder_recibo_EMBS = DriveApp.getFolderById(folderEMBSID);
-    var folder_recibo_PES = DriveApp.getFolderById(folderPESID);
-    var folder_recibo_RAS = DriveApp.getFolderById(folderRASID);
-    var folder_recibo_TEMS = DriveApp.getFolderById(folderTEMSID);
-    var folder_recibo_ramo = DriveApp.getFolderById(folderramoID);
-    var folder_recibo_AESS = DriveApp.getFolderById(folderAESSID);
 
-    //salva pdf na pasta do ID
+Na seção [Acessando os documentos e locais necessários](#acessando_os documentos_e_locais_ _necessarios) definimos as pastas que poderiam ser utilizadas para salvar nosso recibo agora iremos escolher qual pasta iremos salvar. Para isso utilizo o seguinte sequencia de comandos:
+
+```js
+    var pasta_recibo;
     if (unidade == "Ramo") {
-        folder_recibo_ramo.createFile(recibo_pdf)
+        pasta_recibo = pasta_ramo;
     } else if (unidade == "AESS") {
-        folder_recibo_AESS.createFile(recibo_pdf)
+        pasta_recibo = pasta_AESS;
     } else if (unidade == "CS") {
-        folder_recibo_CS.createFile(recibo_pdf)
+        pasta_recibo = pasta_CS;
     } else if (unidade == "CPMT") {
-        folder_recibo_CPMT.createFile(recibo_pdf)
+        pasta_recibo = pasta_CPMT;
     } else if (unidade == "EMBS") {
-        folder_recibo_EMBS.createFile(recibo_pdf)
+        pasta_recibo = pasta_EMBS;
     } else if (unidade == "PES") {
-        folder_recibo_PES.createFile(recibo_pdf)
+        pasta_recibo = pasta_PES;
     } else if (unidade == "RAS") {
-        folder_recibo_RAS.createFile(recibo_pdf)
+        pasta_recibo = pasta_RAS;
     } else if (unidade == "TEMS") {
-        folder_recibo_TEMS.createFile(recibo_pdf)
+        pasta_recibo = pasta_TEMS;
     }
 ```
+
+!!! attention ""
+    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando Recibo no Driver](#salvando-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
+
+Para salvar o recibo na pasta correta utilizamos a função abaixo:
+
+``` js
+pasta_recibo.createFile(recibo_pdf)
+```
+
+??? note ""
+    Caso todos os recibos sejam salvos apenas em uma pasta substituimos todas as pastas definidas na seçao [Acessando os documentos e locais necessários](#acessando-os-documentos-e-locais-necessarios) pela função: `#js var pasta_recibo = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");`
+
+    O laço `if` responsável pela escolha das pastas na seção [Salvando Recibo no Driver](#salvando-recibos-no-driver) ou os campos que fazem essa função no algoritimo da seção [If Elegante](#if-elegante) devem ser removidos.
 
 #### Construindo o E-mail
 ```js
@@ -915,7 +930,50 @@ O comando `setValue("valor")` mostrado na linha de código abaixo é responsavel
         '<h2><b>Olá ' + nome_completo + '!' + '</h2></b>' +
         'Você está recebendo este e-mail pois no dia ' + '<b>' + datarecibo + '</b>' +
         ' você efetuou um pagamento no valor de <b> ' + valor + ' (' + valorextenso + ') ' + '</b>' + 'referente ao ' + '<b>' + evento + '</b>' + '<br>' +
-        'Seu recibo foi anexado neste email e pode ser identificado pelo ID' + '<b>' + idrecibo + '</b>' + '.' +
+        'Seu recibo foi anexado neste email e pode ser identificado pelo ' + '<b>' + idrecibo + '</b>' + '.' +
         '</body>'
     var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
-``` 
+```
+
+### If Elegante
+
+Nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando Recibo no Driver](#salvando-recibos-no-driver) definimos as variaveis idunidade, numrecibo e pasta_recibo por meio de um laço `if` a estrutura utilizada nestes 3 laços foi a mesma então para maior elegância do código no algoritimo completo que mostrado na seção [Função Recibo](#funcao-recibo) utilizamos a versão mostrada abaixo;
+
+``` js
+    var idunidade;
+    var numrecibo;
+    var pasta_recibo;
+    if (unidade == "Ramo") {
+        idunidade = "00";
+        numrecibo = pad(past_adm.getRange(2, 3).getValue(), 4);
+        pasta_recibo = pasta_ramo;
+    } else if (unidade == "AESS") {
+        idunidade = "01";
+        numrecibo = pad(past_adm.getRange(3, 3).getValue(), 4);
+        pasta_recibo = pasta_AESS;
+    } else if (unidade == "CS") {
+        idunidade = "02";
+        numrecibo = pad(past_adm.getRange(4, 3).getValue(), 4);
+        pasta_recibo = pasta_CS;
+    } else if (unidade == "CPMT") {
+        idunidade = "03";
+        numrecibo = pad(past_adm.getRange(5, 3).getValue(), 4);
+        pasta_recibo = pasta_CPMT;
+    } else if (unidade == "EMBS") {
+        idunidade = "04";
+        numrecibo = pad(past_adm.getRange(6, 3).getValue(), 4);
+        pasta_recibo = pasta_EMBS;
+    } else if (unidade == "PES") {
+        idunidade = "05";
+        numrecibo = pad(past_adm.getRange(7, 3).getValue(), 4);
+        pasta_recibo = pasta_PES;
+    } else if (unidade == "RAS") {
+        idunidade = "06";
+        numrecibo = pad(past_adm.getRange(8, 3).getValue(), 4);
+        pasta_recibo = pasta_RAS;
+    } else if (unidade == "TEMS") {
+        idunidade = "07";
+        numrecibo = pad(past_adm.getRange(9, 3).getValue(), 4);
+        pasta_recibo = pasta_TEMS;          
+    }
+```
