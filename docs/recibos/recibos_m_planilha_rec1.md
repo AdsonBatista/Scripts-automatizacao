@@ -2,7 +2,7 @@ Importante o nome do arquivo é **Recibos.gs**!
 
 Esté e o arquivo onde estará a função que trata os dados do formulário para gerar o recibo e enviar suas copias para o destinatário e para uma pasta do **Google Driver**. 
 
-Nestá é a primeira vesão do script trata-se de uma unica função que faz todo procedimento. A única diferença dela para a [versão 2.0](recibos_m_planilha_rec2.md) é que na versão 2.0 os processos foram separados em funções especificas para facilitar a modificação e manutenção.
+Nestá é a primeira vesão do script trata-se de uma unica função que faz todo procedimento. A única diferença dela para a [versão 2.0](recibos/recibos_m_planilha_rec2.md) é que na versão 2.0 os processos foram separados em funções especificas para facilitar a modificação e manutenção.
 
 
 

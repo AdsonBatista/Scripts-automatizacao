@@ -2,7 +2,7 @@ Importante o nome do arquivo é **Recibos.gs**!
 
 Esté e o arquivo onde estarão as funções responsaveis por tratar os dados do formulário para gerar o recibo e enviar suas copias para o destinatário e para uma pasta do **Google Driver**. 
 
-Esta é a segunda vesão do script e trata-se um conjunto de funções especificas juntas fazem o procedimento completo. A vantagem dela em relação a [versão 1.0](recibos_m_planilha_rec1.md) é a manutenção e a modificação. em questão de funcionalidade ambas executam os mesmos processos.
+Esta é a segunda vesão do script e trata-se um conjunto de funções especificas juntas fazem o procedimento completo. A vantagem dela em relação a [versão 1.0](recibos/recibos_m_planilha_rec1.md) é a manutenção e a modificação. em questão de funcionalidade ambas executam os mesmos processos.
 
 ??? note "Abra para ver o código da função completo"
     ``` js
@@ -225,11 +225,11 @@ Depois de escolhe ela retorna para a função principal um vetor com as 3 variav
     }
     ```
 
-Essa função cria um documento PDF partir de uma entrada dos dados `idrecibo`, `nome_completo`, `CPF`, `valor`, `valorextenso`, `evento` e `datarecibo`. Para fazer isso ela utiliza os mesmos protocolos da seção [Construindo o recibo](recibos_m_planilha_rec1/#construindo-o-recibo). no final disso ela retorna o a variavel recibo_pdf.
+Essa função cria um documento PDF partir de uma entrada dos dados `idrecibo`, `nome_completo`, `CPF`, `valor`, `valorextenso`, `evento` e `datarecibo`. Para fazer isso ela utiliza os mesmos protocolos da seção [Construindo o recibo](recibos/recibos_m_planilha_rec1/#construindo-o-recibo). no final disso ela retorna o a variavel recibo_pdf.
 
 ## Função email
 
-A função email mostrada abaixo, executa os mesmos protocolos mostrados na seção [Construindo e enviando o E-mail recibo](recibos_m_planilha_rec1/#construindo-e-enviando-o-e-mail), para executar estes protocolos é necessário a entrada dos seguientes dados: `nome_completo`, `CPF`, `valor`, `valorextenso`, `evento`, `datarecibo`, `idrecibo`, `destinatariorecibo` e recibo_pdf
+A função email mostrada abaixo, executa os mesmos protocolos mostrados na seção [Construindo e enviando o E-mail recibo](recibos/recibos_m_planilha_rec1/#construindo-e-enviando-o-e-mail), para executar estes protocolos é necessário a entrada dos seguientes dados: `nome_completo`, `CPF`, `valor`, `valorextenso`, `evento`, `datarecibo`, `idrecibo`, `destinatariorecibo` e recibo_pdf
 
 
 ??? note "Abra para ver o código da função email"
@@ -273,7 +273,7 @@ Para separar essas unidades as seguintes linhas são utilizadas
     var pasta_recibo = dep_unidades[2];
 ```
 
-Posteriormente ele cria e escreve na planilha a variavel `idrecibo` utilizando os mesmos procedimentos da seção [Definindo e Registrando o ID do recibo](recibos_m_planilha_rec1/#definindo-e-registrando-o-id-do-recibo)
+Posteriormente ele cria e escreve na planilha a variavel `idrecibo` utilizando os mesmos procedimentos da seção [Definindo e Registrando o ID do recibo](recibos/recibos_m_planilha_rec1/#definindo-e-registrando-o-id-do-recibo)
 
 Ao encontrar a linha:
 ```js
