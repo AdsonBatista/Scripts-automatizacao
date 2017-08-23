@@ -8,6 +8,10 @@ Crie um arquivo HTML no *script* utilizando os passos mostrados na seção [Scri
 <body>
     <div>
         <h2 class="center-align teal-text">Olá <?= nome_completo ?>!</h2> Você está recebendo este e-mail pois no dia <b> <?= datarecibo  ?></b> você efetuou um pagamento no valor de <b>R$<?= valor ?> (<?= valorextenso ?>)</b> referente a/ao <b><?= evento ?></b>. Seu recibo foi anexado neste email e se necessario pode ser identificado pelo ID: <b> <?=  idrecibo  ?></b>.
+    <br>
+    Você também pode visualizar seu recibo utilizando a seguinte URL: <br>
+    <a href="<?= urlpdf ?>"><?= urlpdf ?></a><br/>
+    
     </div>
     <!-- Assinatura  -->
     <br>
@@ -18,12 +22,9 @@ Crie um arquivo HTML no *script* utilizando os passos mostrados na seção [Scri
                 <img src="https://drive.google.com/uc?id=0B8CcpExpMKFlZXNLdzJKWU9Wcm8" width="150">
             </td>
             <td> 
-                <b style="word-space:2em">&nbsp;&nbsp;</b> Site: ieeeufabc.org
-                <br>
-                <b style="word-space:2em">&nbsp;&nbsp;</b> Facebook: facebook.com/ieee.ufabc
-                <br>
-                <b style="word-space:2em">&nbsp;&nbsp;</b> Twitter: @ieeeufabc
-                <br>
+                <b style="word-space:2em">&nbsp;&nbsp;</b> Site: ieeeufabc.org<br>
+                <b style="word-space:2em">&nbsp;&nbsp;</b> Facebook: facebook.com/ieee.ufabc<br>
+                <b style="word-space:2em">&nbsp;&nbsp;</b> Twitter: @ieeeufabc<br>
             </td>
         </tr>
     </table>

@@ -16,7 +16,12 @@ Os Ramos Estudantis (ou Student Branches) do Instituto de Engenheiros Eletricist
 
 No final do ano de 2014, a UFABC iniciou o processo de legitimação das Entidades Estudantis. A Portaria da Reitoria nº 430, de 19 de outubro de 2016, que regulamenta as responsabilidades das Entidades Estudantis Profissionais e Empreendedoras (EEPEs) vinculadas à UFABC, foi homologada em 2016, o que dentre outras coisas permitiu que um grupo de Entidades Estudantis tenha o direito de  movimentações financeiras (vendas) dentro de terreno da Universidade. O conjunto de normativas da UFABC exige que para continuar sendo uma Entidade Estudantil reconhecida institucionalmente seja emitido um Relatório Anual de Atividades e também Relatório Financeiro Anual, além de outros pedidos. 
 
-Devido à grande quantidade de pessoas, atividades e a grande fragmentação da estrutura organizacional do Ramo, era difícil estabelecer um padrão utilizável, o que dificultava a criação dos relatórios. Era difícil até mesmo mensurar dados internos do Ramo.
+Devido à grande quantidade de pessoas, atividades e a grande fragmentação da estrutura organizacional do Ramo, era difícil estabelecer um padrão utilizável, o que dificultava a criação dos relatórios. Era difícil até mesmo mensurar dados internos do Ramo.  Antes de implementação do projeto os fluxogramas que definem processo de registro e resgate de dados se dava da seguinte forma:
 
-Com este problema em mente, decidiu-se trabalhar num processo de automatização de processos internos do IEEE UFABC através de ferramentas gratuitas e de fácil manipulação. A ferramenta escolhida foi o Google Apps e o GitHub.
+**Entrar Fluxogramas*
 
+Com este problema em mente, decidiu-se trabalhar numa serie de projetos para automatização de processos internos do IEEE UFABC. A descrição e o status destes projetos pode se vista [neste Link](projetos.md), e todos eles foram desenvolvidos inteiramente através de ferramentas gratuitas. As ferramentas escolhidas foram o Google Apps e o GitHub.
+
+A idealização do processo de registro e resgate de dados pós implmentação do processo é respresentada pelo seguintes fluxogramas.
+
+**Entrar Fluxogramas**

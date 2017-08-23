@@ -11,11 +11,11 @@ Este sistema é composto por:
 
 Este projeto pode ser dividio em 4 projetos menores cuja melhor ordem de construção é a sequencia abaixo: 
 
-### Recibos 
+## Recibos 
 Este é Google Script que emissão de Recibos gerais do Ramo Estudantil IEEE UFABC.
 O usuário preenche uma formulário e ele armazena dados na planilha de caixa, envia um email com o recibo em PDF para o destinatairio e grava uma segunda via numa pasta do Driver do Ramo. 
 
-### Movimentações
+## Movimentações
 Este é um GoogleApp **em desenvolvimento**!
 O usuário preenche uma formulário, em que deve anexar uma cópia digital do comprovante de movimentação. O WebApp armazena dados na planilha de caixa o comprovante de movimentação vai para o driver e um e-mail é enviado com o resumo da transacão para as pessoas responsáveis. 
 

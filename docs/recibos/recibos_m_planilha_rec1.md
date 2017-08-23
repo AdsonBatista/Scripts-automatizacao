@@ -1,6 +1,10 @@
-## Função Recibo 1.0.0
+Importante o nome do arquivo é **Recibos.gs**!
 
-Está função é a função que trata os dados do formulário para gerar o recibo e enviar suas copias para o destinatário e para uma pasta do **Google Driver**. Por ela ser uma função muito grande irei fragmenta-lá e explicar a passo como construir ela.
+Esté e o arquivo onde estará a função que trata os dados do formulário para gerar o recibo e enviar suas copias para o destinatário e para uma pasta do **Google Driver**. 
+
+Nestá é a primeira vesão do script trata-se de uma unica função que faz todo procedimento. A única diferença dela para a [versão 2.0](recibos_m_planilha_rec2.md) é que na versão 2.0 os processos foram separados em funções especificas para facilitar a modificação e manutenção.
+
+
 
 ??? note "Abra para ver o código da função completo"
     ``` js
@@ -105,6 +109,7 @@ Está função é a função que trata os dados do formulário para gerar o reci
         html.valorextenso = valorextenso
         html.evento = evento;
         html.idrecibo = idrecibo;
+        html.urlpdf = urlpdf;
         var htmlBody = html.evaluate().getContent();
         var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
         var assunto = "Recibo IEEE UFABC";
@@ -287,7 +292,7 @@ Função pad(x,y)
 !!! attention ""
     Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algorítimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostRada na seção [If Elegante](#if-elegante).
 
-### Definindo e registrando o do Recibo
+### Definindo e registrando o ID do Recibo
 
 Quando criamos nossa planilha deixamos a coluna "A" definida com . Este será preenchido por um conjunto de caracteres respeitando o seguinte código:
 
@@ -384,7 +389,7 @@ Para salvar o recibo na pasta correta e pegar o URL deste arquivo para compartil
 
 ``` js
         var pdf = pasta_recibo.createFile(recibo_pdf)
-        var urlarquivo = pdf.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.VIEW).getUrl()
+        var urlpdf = pdf.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.VIEW).getUrl()
 ```
 
 ??? note "Se voce tiver uma unica pasta!"
@@ -404,6 +409,7 @@ O corpo do e-mail é feito com o *template* Html feito na seção [Modelo HTML](
     html.valorextenso = valorextenso
     html.evento = evento;
     html.idrecibo = idrecibo;
+    html.urlpdf = urlpdf;
     var htmlBody = html.evaluate().getContent();    
 ```
 

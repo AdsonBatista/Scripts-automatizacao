@@ -50,14 +50,13 @@ markdown_extensions:
   - pymdownx.progressbar
 pages:
   - Início: index.md
-  - Os Projetos: scripts.md
+  - Os Projetos: projetos.md
   - Projetos internos:
     - Tesouraria:
       - Introdução: tesouraria.md
       - Recibos: 
-        - Funcionalidades: recibos_i.md
+        - Resumo do Projeto: recibos_i.md
         - Implementação: #recibos_m.md
-          - Estrutura:  recibos_m_2.md
           - Formulário: recibos_m_form.md
           - Modelo de recibo: recibos_m_docs.md
           - Planilha:
@@ -66,8 +65,8 @@ pages:
               # - Estrutura: recibos_m_planilha_estr.md
               - Auxiliar.gs: recibos_m_planilha_aux.md
               - rec_mail_template.html: recibos_m_planilha_html.md
-              - recibo 1.0: recibos_m_planilha_rec1.md
-              - recibo 2.0: recibos_m_planilha_rec2.md
+              - recibo.gs 1.0: recibos_m_planilha_rec1.md
+              - recibo.gs 2.0: recibos_m_planilha_rec2.md
         - Melhorias: recibos_t.md
         - Changelog: recibos_c.md
       - Movimentações:  
