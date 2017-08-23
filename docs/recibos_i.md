@@ -23,7 +23,7 @@ Para o devido funcionamento deste *script* é necessárias 8 pastas que serão u
 
 Sua implementação foi dividida nas seguintes etapas que serão exploradas nas proximas páginas:
 
-* [Criação do formulário](reciborecibos_m_form.md)
+* [Criação do formulário](recibos_m_form.md)
 * [Criação do modelo de recibo](recibos_m_docs.md)
 * Manipulações com Planilha
   * [Criação das pastas de trabalho](recibos_m_planilha.md)

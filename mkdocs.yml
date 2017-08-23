@@ -13,9 +13,6 @@ copyright: 'Copyright &copy; 2016 - 2017 Adson Batista'
 
 # Theme directory
 theme_dir: material
-docs_dir: 
-  docs
-  docs/recibos
 # Options
 extra:
   feature:
