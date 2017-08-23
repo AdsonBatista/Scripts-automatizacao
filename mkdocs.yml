@@ -56,7 +56,7 @@ pages:
     - Recibos: 
       - Funcionalidades: recibos_i.md
       - Implementação: recibos_m.md
-        - Estrura: recibos_m_est.md
+        - Estrura:  recibos_m_2.md
         - Formulário: recibos_m_form.md
         - Modelo de recibo: recibos_m_docs.md
         - Planilha:

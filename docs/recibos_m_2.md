@@ -1,4 +1,4 @@
-# Estrutura do Projeto
+## Estrutura do Projeto
 Para o devido funcionamento deste *script* é necessárias 8 pastas que serão utilizadas para gravar os recibos de 3 arquivos que são:
 
  * Uma "Formulário Google". - Ele servirá de entrada de dados do sistema é o único "arquivo" que o usuário final terá acesso.
