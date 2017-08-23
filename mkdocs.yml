@@ -55,8 +55,8 @@ pages:
   - Tesouraria:
     - Recibos: 
       - Funcionalidades: recibos_i.md
-      - Implementação: recibos_m.md
-        #- Estrura:  recibos_m_2.md
+      - Implementação: #recibos_m.md
+        - Estrutura:  recibos_m_2.md
         - Formulário: recibos_m_form.md
         - Modelo de recibo: recibos_m_docs.md
         - Planilha:
