@@ -1,4 +1,4 @@
-## O formulário
+# O formulário
 
 Devido a necessidade de modificações constantes (adicionar ou retirar itens) deste formulário optou-se pela utilização de um "Formulário Google", pois com ele é fácil modificar o conteúdo dos seus campos.
 Todos os campos do formulário são de preenchimento obrigatório.
