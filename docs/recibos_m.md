@@ -1,4 +1,4 @@
-# Estrutura do Documento
+# Estrutura do Projeto
 Para o devido funcionamento deste *script* é necessário de 5 arquivos:
 
  * Uma "Formulário Google". - Ele servirá de entrada de dados do sistema é o único "arquivo" que o usuário final terá acesso.
@@ -7,7 +7,7 @@ Para o devido funcionamento deste *script* é necessário de 5 arquivos:
  * Um Arquivo HTML - Ele é o modelo utilizado para gerar o e-mail enviado.
  * Um "Documentos Google". - Ele é o modelo utilizado para gerar o recibo propriamente dito.
 
-## O formuário
+## O formulário
 
 Devido a necessidade de modificações constantes (adicionar ou retirar itens) deste formulário optou-se pela utilização de um "Formulário Google", pois com ele é fácil modificar o conteúdo dos seus campos.
 Todos os campos do formulário são de preenchimento obrigatório.
@@ -225,7 +225,7 @@ O valor retornado será o número de recibos já emitidos somado a 1. Veja o Exe
 
 ## Doc
 
-## Script
+## Script V1
 
 O Script usado será criado a partir da Planilha que recebe dados do formulário para isso com a planilha aberta no menu `ferramentas` e escolha a opção `Editor de Scripts`
 
@@ -539,195 +539,116 @@ Está função é a função que trata os dados do formulário para gerar o reci
 
 ??? note "Abra para ver o código da função completo"
     ``` js
-    function send_Rec_Email() {
-        //  do modelo recibo no Google Docs
+        function recibo() {
         var recibotemplateId = "14Zlj5zwYyWHhAUnBG9dMFYTzeClIa_xvayxJsB8k_Os"
-        
-        // Carrega planilha ativa
-        var ss = App.getActive()
-        //var ss = App.getActive().getSheetByName("Recibos")
-        
-        var dados = ss.getDataRange().getValues();
-        var ultimaLinha = ss.getLastRow() - 1; //Pega a última linha da tabela
-        
-        // Defino a pasta 2 da minha planilha como ativa
-        var sheet = App.openById(submissionSSKey).getSheets()[2];
-        
-        // informações da planilha
-      // var datarecibo = dados[ultimaLinha]['coloque aqui o nº da coluna onde ficara o data do recibo , lembrando que a coluna A vale 0(zero)'];
-        var datarecibo = dados[ultimaLinha][2];
+        var past_recibos = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Recibos")
+        var past_adm = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Pasta adm")
 
-        // var evento = dados[ultimaLinha]['coloque aqui o nº da coluna onde ficara o valor do curso, lembrando que a coluna A vale 0(zero)'];
-        var evento = dados[ultimaLinha][4];
-        
-        // var unidade = dados[ultimaLinha]['coloque aqui o nº da coluna onde ficara o unidade responsavel, lembrando que a coluna A vale 0(zero)'];
-        var unidade = dados[ultimaLinha][5];
-        
-        // var nome_completo = dados[ultimaLinha]['coloque aqui o nº da coluna onde ficara o Nome completo da pessoa, lembrando que a coluna A vale 0(zero)'];
-        var nome_completo = dados[ultimaLinha][6];
-        
-        // var CPF = dados[ultimaLinha]['coloque aqui o nº da coluna onde ficara o CPF da pessoa, lembrando que a coluna A vale 0(zero)'];
-        var CPF = String(dados[ultimaLinha][7]);
-        
-        // Formata o CPF no formato de 123.456.789-11
+        var pasta_ramo = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_AESS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_CS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_CPMT = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_EMBS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_PES = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_RAS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_TEMS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+
+        var dados_recibos = past_recibos.getDataRange().getValues();
+        var ultimaLinha = past_recibos.getLastRow() - 1;
+
+        var datarecibo = dados_recibos[ultimaLinha][2];
+        var evento = dados_recibos[ultimaLinha][4];
+        var unidade = dados_recibos[ultimaLinha][5];
+        var nome_completo = dados_recibos[ultimaLinha][6];
+        var CPF = dados_recibos[ultimaLinha][7];
+        var valor = dados_recibos[ultimaLinha][10];
+        var ano = dados_recibos[ultimaLinha][11];
+        var mes = dados_recibos[ultimaLinha][12];
+        var destinatariorecibo = dados_recibos[ultimaLinha][13];
+
         if (CPF.lenght != 11) {
             CPF = '0'.concat(CPF);
         }
-        var CPF = CPF.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-        
-        // var valor = dados[ultimaLinha]['coloque aqui o nº da coluna onde ficara o valor do curso, lembrando que a coluna A vale 0(zero)'];
-        var valor = dados[ultimaLinha][10];
-        
-        // var valor = dados[ultimaLinha]['coloque aqui o nº da coluna onde ficara o valor do curso, lembrando que a coluna A vale 0(zero)'];
+        CPF = CPF.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        ano = ano.toString().right(2);
         var valorextenso = Extenso(valor);
-        
-        // var ano = dados[ultimaLinha]['coloque aqui o nº da coluna onde ficara o Ano da transaçao no formato de 4 numeros, lembrando que a coluna A vale 0(zero)'];
-        var ano = dados[ultimaLinha][11];
-        
-        // var mes = dados[ultimaLinha]['coloque aqui o nº da coluna onde ficara o mes da transaçao no formato de 2 numeros, lembrando que a coluna A vale 0(zero)'];
-        var mes = dados[ultimaLinha][12];
-        
-        //var destinatariorecibo = dados[ultimaLinha]['coloque aqui o nº da coluna onde ficara o e-mail, lembrando que a coluna A vale 0(zero)'];
-        var destinatariorecibo = dados[ultimaLinha][13];
-        
-        // Teste id recibo
-        var range;
-        // Define um  para cada unidade.
-        var idunidade;
-        // Busca na planilha uma célula específica (neste caso o número do recibo).
-        // range = sheet.getRange(linha,coluna);
+        valor = valor.formatMoney(2, ',', '');
+        destinatariorecibo = destinatariorecibo.toLowerCase();
+
+        var idunidade, numrecibo, pasta_recibo;
         if (unidade == "Ramo") {
-            range = sheet.getRange(2, 3);
             idunidade = "00";
+            numrecibo = pad(past_adm.getRange(2, 3).getValue(), 4);
+            pasta_recibo = pasta_ramo;
         } else if (unidade == "AESS") {
-            range = sheet.getRange(3, 3);
             idunidade = "01";
+            numrecibo = pad(past_adm.getRange(3, 3).getValue(), 4);
+            pasta_recibo = pasta_AESS;
         } else if (unidade == "CS") {
-            range = sheet.getRange(4, 3);
             idunidade = "02";
+            numrecibo = pad(past_adm.getRange(4, 3).getValue(), 4);
+            pasta_recibo = pasta_CS;
         } else if (unidade == "CPMT") {
-            range = sheet.getRange(5, 3);
             idunidade = "03";
+            numrecibo = pad(past_adm.getRange(5, 3).getValue(), 4);
+            pasta_recibo = pasta_CPMT;
         } else if (unidade == "EMBS") {
-            range = sheet.getRange(6, 3);
             idunidade = "04";
+            numrecibo = pad(past_adm.getRange(6, 3).getValue(), 4);
+            pasta_recibo = pasta_EMBS;
         } else if (unidade == "PES") {
-            range = sheet.getRange(7, 3);
             idunidade = "05";
+            numrecibo = pad(past_adm.getRange(7, 3).getValue(), 4);
+            pasta_recibo = pasta_PES;
         } else if (unidade == "RAS") {
-            range = sheet.getRange(8, 3);
             idunidade = "06";
+            numrecibo = pad(past_adm.getRange(8, 3).getValue(), 4);
+            pasta_recibo = pasta_RAS;
         } else if (unidade == "TEMS") {
-            range = sheet.getRange(9, 3);
             idunidade = "07";
+            numrecibo = pad(past_adm.getRange(9, 3).getValue(), 4);
+            pasta_recibo = pasta_TEMS;
         }
-         
-        // Defino o número do recibo com 4 algarismos.
-        var numrecibo = pad(range.getValue(), 4);
-        
-        // Chama a função "right" para pegar os 2 últimos digitos da data preenchido no formulário.
-        var ano = ano.toString().right(2);
-        
-        // Monta o  do Recibo
+
         var idrecibo = idunidade + mes + numrecibo + ano + "ER";
-        
-        // escreve na planilha "Recibos" o  do recibo
-        ss.getSheets()[0].getRange(ultimaLinha+1, 1).setValue(idrecibo);
-        
-        // defino destinatario do Canhoto - Fixo 
-        var destinatariocanhoto = "adson.batista@live.com";
-        
-        //EMAIL
-        // Assunto do email
-        var subject = "Recibo IEEE UFABC";
-        
-        // Mensagem do Corpo 
-        var html =
-            '<body>' +
-            '<h2><b>Olá ' + nome_completo + '!' + '</h2></b>' +
-            'Você está recebendo este e-mail pois no dia ' + '<b>' + datarecibo + '</b>' +
-            ' você efetuou um pagamento no valor de <b> ' + valor + ' (' + valorextenso + ') ' + '</b>' + 'referente ao ' + '<b>' + evento + '</b>' + '<br>' +
-            'Seu recibo foi anexado neste email e pode ser identificado pelo ' + '<b>' + idrecibo + '</b>' + '.' +
-            '</body>'
-        
-        // Dados do Rementente
-        var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
-        
-        // Cria um recibo temporário, recupera o  e o abre
+
+        past_recibos.getRange(ultimaLinha + 1, 1).setValue(idrecibo);
+
         var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(idrecibo).getId();
-        
-        // var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(recibotempDoc +'_' + id_recibo + '_' + nome_completo).getId();
         var docCopia = DocumentApp.openById(idCopia);
-        
-        // recupera o corpo do recibo
-        var bodyCopia = docCopia.getActiveSection();
-        
-        // faz o replace das variáveis do template, salva e fecha o documento temporario
-        bodyCopia.replaceText("NOME", nome_completo);
-        bodyCopia.replaceText("NUMEROCPF", CPF);
-        bodyCopia.replaceText("VALOR", valor);
-        bodyCopia.replaceText("VALEXTENSO", valorextenso);
-        bodyCopia.replaceText("CURSO", evento);
-        bodyCopia.replaceText("DATARECIBO", datarecibo);
-        bodyCopia.replaceText("RECIBO", idrecibo);
+        var textoCopia = docCopia.getActiveSection();
+
+        textoCopia.replaceText("NOME", nome_completo);
+        textoCopia.replaceText("NUMEROCPF", CPF);
+        textoCopia.replaceText("VALOR", valor);
+        textoCopia.replaceText("VALEXTENSO", valorextenso);
+        textoCopia.replaceText("CURSO", evento);
+        textoCopia.replaceText("DATARECIBO", datarecibo);
+        textoCopia.replaceText("RECIBO", idrecibo);
         docCopia.saveAndClose();
-        
-        // abre o documento temporario como PDF utilizando o seu 
+
         var recibo_pdf = DriveApp.getFileById(idCopia).getAs("application/pdf");
-        
-        //Pastas Drive para Salvar recibos
-        var folderramo = "0B8CcpExpMKFlZElETVFjOGd0elk";
-        var folderAESS = "0B8CcpExpMKFlZElETVFjOGd0elk";
-        var folderCS = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folderCPMT = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folderEMBS = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folderPES = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folderRAS = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folderTEMS = "0B8CcpExpMKFlZElETVFjOGd0elk"
-        var folder_recibo_CS = DriveApp.getFolderById(folderCS);
-        var folder_recibo_CPMT = DriveApp.getFolderById(folderCPMT);
-        var folder_recibo_EMBS = DriveApp.getFolderById(folderEMBS);
-        var folder_recibo_PES = DriveApp.getFolderById(folderPES);
-        var folder_recibo_RAS = DriveApp.getFolderById(folderRAS);
-        var folder_recibo_TEMS = DriveApp.getFolderById(folderTEMS);
-        var folder_recibo_ramo = DriveApp.getFolderById(folderramo);
-        var folder_recibo_AESS = DriveApp.getFolderById(folderAESS);
-        
-        //salva pdf na pasta do 
-        if (unidade == "Ramo") {
-            folder_recibo_ramo.createFile(recibo_pdf)
-        } else if (unidade == "AESS") {
-            folder_recibo_AESS.createFile(recibo_pdf)
-        } else if (unidade == "CS") {
-            folder_recibo_CS.createFile(recibo_pdf)
-        } else if (unidade == "CPMT") {
-            folder_recibo_CPMT.createFile(recibo_pdf)
-        } else if (unidade == "EMBS") {
-            folder_recibo_EMBS.createFile(recibo_pdf)
-        } else if (unidade == "PES") {
-            folder_recibo_PES.createFile(recibo_pdf)
-        } else if (unidade == "RAS") {
-            folder_recibo_RAS.createFile(recibo_pdf)
-        } else if (unidade == "TEMS") {
-            folder_recibo_TEMS.createFile(recibo_pdf)
-        }
-        
-        // envia o email com recibo para destinatario
-        // MailApp.sendEmail(destinatariorecibo, subject, body, {name: remetente, attachments: recibo_pdf});
-        MailApp.sendEmail(destinatariorecibo, subject, html, {
-            name: remetente,
-            htmlBody: html,
-            attachments: recibo_pdf
-        });
-        // envia o email recibo para email do ramo  
-        MailApp.sendEmail(destinatariocanhoto, subject, html, {
-            name: remetente,
-            htmlBody: html,
-            attachments: recibo_pdf
-        });
-        
-        // apaga o documento temporário
         DriveApp.getFileById(idCopia).setTrashed(true);
+
+        var pdf=  pasta_recibo.createFile(recibo_pdf);
+        var urlarquivo = pdf.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.VIEW).getUrl()
+
+        var html = HtmlService.createTemplateFromFile('rec_email_template');
+        html.nome_completo = nome_completo;
+        html.datarecibo = datarecibo;
+        html.valor = valor;
+        html.valorextenso = valorextenso
+        html.evento = evento;
+        html.idrecibo = idrecibo;
+        var htmlBody = html.evaluate().getContent();
+        var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
+        var assunto = "Recibo IEEE UFABC";
+        MailApp.sendEmail(destinatariorecibo, assunto, html, {
+            name: remetente,
+            htmlBody: htmlBody,
+            attachments: recibo_pdf
+        });
+
     }
     ```
 
@@ -771,8 +692,8 @@ A seguir adicionamos as variáveis que indicarão todas as possíveis pastas que
 Depois de indicar quais serão documentos vamos trabalhar devemos pegar os dados das planilhas para isso utilizamos aos seguintes comandos:
 
 ```js
-    var dados_recibos = plan_recibos.getDataRange().getValues();
-    var ultimaLinha = plan_recibos.getLastRow() - 1;
+    var dados_recibos = past_recibos.getDataRange().getValues();
+    var ultimaLinha = past_recibos.getLastRow() - 1;
 ```
 
 A variável `dados_recibos` pega toda os valores preenchidos na pasta de trabalho `plan_recibos` essas variáveis são guardadas em vetores numerados em que o vetor "0" armazena os dados da linha 1 da planilha. A variável ultima linha ela nos dá a ultima linha preenchida pasta de trabalho.
@@ -797,7 +718,7 @@ Os comandos abaixo se aplicados em uma planilha como a criada anteriormente guar
     var destinatariorecibo = dados_recibos[ultimaLinha][13];
 ```
 
-#### Tratando os dados extraidos
+#### Tratando os dados extraídos
 
 Para melhor efeito visual ou necessidade alguns dados devem ser tratados para isso utilizamos o seguinte algorítimo:
 
@@ -808,8 +729,8 @@ Para melhor efeito visual ou necessidade alguns dados devem ser tratados para is
     CPF = CPF.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
     ano = ano.toString().right(2);
     var valorextenso = Extenso(valor);
-    valor = valor.formatMoney(3, ',', '');
-
+    valor = valor.formatMoney(2, ',', '');
+    destinatariorecibo = destinatariorecibo.toLowerCase();
 ```
 
 O primeiro `if` é responsável por verificar se o CPF é uma *string* de 11 casas. caso não seja ele adiciona um 0 a esquerda. Posteriormente o CPF é formatado para o formato 123.456.789-11 por meio da expressão regular do algoritmo.
@@ -835,6 +756,12 @@ A variável `valorextenso` é a *string* que contém o número do campo "valor" 
 ```
 
 Reescrevo a variável valor no formato de *string* só que agora no formato com duas casas decimais utilizando o separador ",". É muito importante que essa linha venha depois da função Extenso.
+
+```js
+    destinatariorecibo = destinatariorecibo.toLowerCase();
+```
+
+Com a linha de código acima eu faço com que o e-mail seja escrito em caixa baixa.
 
 A variável `idunidade` é escrito a partir do valor extraído e armazenado na variável `unidade`. Para determinar qual valor deve ser escrito é utilizada a seguinte função:
 
@@ -917,7 +844,7 @@ A variável `idrecibo` para este algorítimo é definida definida pela concatena
 O comando `setValue("valor")` mostrado na linha de código abaixo é responsável por escrever o `idrecibo` na primeira coluna da linha que estamos trabalhando.
 
 ```js
-   dados_recibos.getRange(ultimaLinha+1, 1).setValue(idrecibo);
+   past_recibos.getRange(ultimaLinha+1, 1).setValue(idrecibo);
 ```
 
 !!! attention ""
@@ -930,13 +857,8 @@ Para construir o Recibo iremos utilizar o *template* criado na seção [Doc](#do
 Para isso devemos criar uma copia temporária do recibo e pegar o numero de ID dela  `idcopia`, abrir essa e armazenar essa cópia na variável ``docCopia`` para então copiar o texto deste documento na variável `textoCopia`. Para fazer isso utilizamos as seguintes funções:
 
 ```js
-// Cria um recibo temporário, recupera o  e o abre
     var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(idrecibo).getId();
-
-    // var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(recibotempDoc +'_' + id_recibo + '_' + nome_completo).getId();
     var docCopia = DocumentApp.openById(idCopia);
-
-    // recupera o corpo do recibo
     var textoCopia = docCopia.getActiveSection();
 ```
 
@@ -959,7 +881,7 @@ Agora utilizamos comando abaixo para pegar o arquivo por meio de seu ID armazena
     var recibo_pdf = DriveApp.getFileById(idCopia).getAs("application/pdf");
 ```
 
-Depois de converter para pdf e o armazenar em uma variável eu posso deletar o arquivo temporário criado para isso utilizo o comando:
+Depois de converter para o formato ".pdf" e o armazenar em uma variável eu posso deletar o arquivo temporário criado para isso utilizo o comando:
 
 ```js
   DriveApp.getFileById(idCopia).setTrashed(true);
@@ -992,10 +914,11 @@ Na seção [Acessando os documentos e locais necessários](#acessando_os documen
 !!! attention ""
     Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algorítimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostrada na seção [If Elegante](#if-elegante).
 
-Para salvar o recibo na pasta correta utilizamos a função abaixo:
+Para salvar o recibo na pasta correta e pegar o URL deste arquivo para compartilhamento utilizamos as funções abaixo:
 
 ``` js
-pasta_recibo.createFile(recibo_pdf)
+        var pdf = pasta_recibo.createFile(recibo_pdf)
+        var urlarquivo = pdf.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.VIEW).getUrl()
 ```
 
 ??? note "Se voce tiver uma unica pasta!"
@@ -1027,15 +950,18 @@ htlm.variavel_template = variavel_script
 
 Na ultima linha eu crio a variável `htmlBody` nela armazeno o conteúdo que da variável `html`.
 
-Posteriormente defino a variável  remetente que é o endereço de e-mail que irá aparecer como remetente do e-mail.
+Posteriormente defino as variáveis `remetente` e `assunto` que armazenam respectivamente o endereço de e-mail que irá aparecer como remetente do e-mail e o assunto do e-mail.
 ```js
     var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
+    var assunto = "Recibo IEEE UFABC";
 ```
+
+
 
 Por fim utilizo a função abaixo para enviar o e-mail para o destinatário do recibo. o destinatário do recibo já foi definido na seção [Extraindo dados da Pasta Recibos](#extraindo-dados-da-pasta-recibos)
 
 ```js   
-    MailApp.sendEmail(destinatariorecibo, subject, html, {
+    MailApp.sendEmail(destinatariorecibo, assunto, html, {
         name: remetente,
         htmlBody: htmlBody,
         attachments: recibo_pdf
@@ -1084,3 +1010,145 @@ Nas seções [Tratando os dados extraídos](#tratando-os-dados-extraidos), [Extr
         pasta_recibo = pasta_TEMS;          
     }
 ```
+
+## Script V2
+separação em funções....
+todo: colocar a urlarquivo no e-mail!
+todo: fazer documentação da versão dois do script
+todo: escrever sobre a trigger para que o recibo funcione corretamente a cada submissão.
+todo: colocar cc e cco no e-mail
+
+
+??? note "Abra para ver o código da função completo"
+    ``` js
+        function recibo() {
+       var past_recibos = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Recibos")
+
+      var dados_recibos = past_recibos.getDataRange().getValues();
+      var ultimaLinha = past_recibos.getLastRow() - 1;
+
+       var datarecibo = dados_recibos[ultimaLinha][2];
+       var evento = dados_recibos[ultimaLinha][4];
+       var unidade = dados_recibos[ultimaLinha][5];
+       var nome_completo = dados_recibos[ultimaLinha][6];
+       var CPF = dados_recibos[ultimaLinha][7];
+       var valor = dados_recibos[ultimaLinha][10];
+       var ano = dados_recibos[ultimaLinha][11];
+       var mes = dados_recibos[ultimaLinha][12];
+       var destinatariorecibo = dados_recibos[ultimaLinha][13]
+    
+        if (CPF.lenght != 11) {
+            CPF = '0'.concat(CPF);
+        }
+        CPF = CPF.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        ano = ano.toString().right(2);
+        var valorextenso = Extenso(valor);
+        valor = valor.formatMoney(2, ',', '');
+        destinatariorecibo = destinatariorecibo.toLowerCase();
+    
+        var dep_unidades = def_unidades(unidade);
+        var idunidade = dep_unidades[0];
+        var numrecibo = dep_unidades[1] ;
+        var pasta_recibo = dep_unidades[2];
+    
+
+        var idrecibo = idunidade + mes + numrecibo + ano + "ER";
+
+        past_recibos.getRange(ultimaLinha + 1, 1).setValue(idrecibo);
+
+        var recibo_pdf = criarrecibo(idrecibo, nome_completo, CPF, valor, valorextenso, evento, datarecibo);
+
+
+        var pdf=  pasta_recibo.createFile(recibo_pdf);
+        var urlarquivo = pdf.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.VIEW).getUrl();
+
+         email(nome_completo, CPF, valor, valorextenso, evento, datarecibo, idrecibo, destinatariorecibo, recibo_pdf);
+
+    }
+
+    function criarrecibo(idrecibo, nome_completo, CPF, valor, valorextenso, evento, datarecibo) {
+        var recibotemplateId = "14Zlj5zwYyWHhAUnBG9dMFYTzeClIa_xvayxJsB8k_Os"
+        var idCopia = DriveApp.getFileById(recibotemplateId).makeCopy(idrecibo).getId();
+        var docCopia = DocumentApp.openById(idCopia);
+        var textoCopia = docCopia.getActiveSection();
+
+        textoCopia.replaceText("NOME", nome_completo);
+        textoCopia.replaceText("NUMEROCPF", CPF);
+        textoCopia.replaceText("VALOR", valor);
+        textoCopia.replaceText("VALEXTENSO", valorextenso);
+        textoCopia.replaceText("CURSO", evento);
+        textoCopia.replaceText("DATARECIBO", datarecibo);
+        textoCopia.replaceText("RECIBO", idrecibo);
+        docCopia.saveAndClose();
+        var recibo_pdf = DriveApp.getFileById(idCopia).getAs("application/pdf");
+        DriveApp.getFileById(idCopia).setTrashed(true);
+        return recibo_pdf
+    }
+
+    function email(nome_completo, CPF, valor, valorextenso, evento, datarecibo, idrecibo, destinatariorecibo, recibo_pdf) {
+        var html = HtmlService.createTemplateFromFile('rec_email_template');
+        html.nome_completo = nome_completo;
+        html.datarecibo = datarecibo;
+        html.valor = valor;
+        html.valorextenso = valorextenso
+        html.evento = evento;
+        html.idrecibo = idrecibo;
+        var htmlBody = html.evaluate().getContent();
+        var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
+        var assunto = "Recibo IEEE UFABC";
+        MailApp.sendEmail(destinatariorecibo, assunto, html, {
+            name: remetente,
+            htmlBody: htmlBody,
+            attachments: recibo_pdf
+        });
+    }
+
+    function def_unidades(unidade) {
+        var past_adm = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Pasta adm")
+        var pasta_ramo = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_AESS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_CS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_CPMT = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_EMBS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_PES = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_RAS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+        var pasta_TEMS = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
+
+            var idunidade, numrecibo, pasta_recibo;
+        if (unidade == "Ramo") {
+            idunidade = "00";
+            numrecibo = pad(past_adm.getRange(2, 3).getValue(), 4);
+            pasta_recibo = pasta_ramo;
+        } else if (unidade == "AESS") {
+            idunidade = "01";
+            numrecibo = pad(past_adm.getRange(3, 3).getValue(), 4);
+            pasta_recibo = pasta_AESS;
+        } else if (unidade == "CS") {
+            idunidade = "02";
+            numrecibo = pad(past_adm.getRange(4, 3).getValue(), 4);
+            pasta_recibo = pasta_CS;
+        } else if (unidade == "CPMT") {
+            idunidade = "03";
+            numrecibo = pad(past_adm.getRange(5, 3).getValue(), 4);
+            pasta_recibo = pasta_CPMT;
+        } else if (unidade == "EMBS") {
+            idunidade = "04";
+            numrecibo = pad(past_adm.getRange(6, 3).getValue(), 4);
+            pasta_recibo = pasta_EMBS;
+        } else if (unidade == "PES") {
+            idunidade = "05";
+            numrecibo = pad(past_adm.getRange(7, 3).getValue(), 4);
+            pasta_recibo = pasta_PES;
+        } else if (unidade == "RAS") {
+            idunidade = "06";
+            numrecibo = pad(past_adm.getRange(8, 3).getValue(), 4);
+            pasta_recibo = pasta_RAS;
+        } else if (unidade == "TEMS") {
+            idunidade = "07";
+            numrecibo = pad(past_adm.getRange(9, 3).getValue(), 4);
+            pasta_recibo = pasta_TEMS;
+        }
+        return [idunidade, numrecibo, pasta_recibo];
+    }
+    ```
+

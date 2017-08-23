@@ -33,7 +33,7 @@
 
 ## 0.4.0
 
-- [x] Definir padrão do nome do arquivo. (verificar código)
+- [x] Definir padrão do nome do arquivo.
 
 ```O Nome do arquivo CPmm0000yyTK
 CP - unidade em código numérico
@@ -44,3 +44,12 @@ t - entrada ou saída
 K - Movimentação, Recibo, Transferência
 ```
 - [x] Unificação dos nomes
+
+## 0.5.0
+
+- [x] Separar corpo do e-mail em um arquivo diferente.
+- [x] Fazer assinatura do Ramo no e-mail.
+- [x] Acrecentado formatação do e-mail.
+- [x] Acrecentado formatação monetária.
+- [x] Acrecentado campo para capturar o Url do recibo gerado.
+- [x] Acrecentada a assinatura do ramo no e-mail.
