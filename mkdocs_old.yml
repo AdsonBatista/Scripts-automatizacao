@@ -55,18 +55,7 @@ pages:
     - Tesouraria:
       - Recibos: 
         - Funcionalidades: recibos_i.md
-        - Implementação: recibos_m.md
-          - Estrura: recibos_m_est.md
-          - Formulário: recibos_m_form.md
-          - Modelo de recibo: recibos_m_docs.md
-          - Planilha:
-            - Pastas de trabalho: recibos_m_planilha.md
-            - Script:
-              # - Estrutura: recibos_m_planilha_estr.md
-              - Auxiliar.gs: recibos_m_planilha_aux.md
-              - rec_mail_template.html: recibos_m_planilha_html.md
-              - recibo 1.0: recibos_m_planilha_rec1.md
-              - recibo 2.0: recibos_m_planilha_rec2.md
+        - Implementação e manutenção: recibos_m.md
         - Melhorias: recibos_t.md
         - Changelog: recibos_c.md
       - Movimentações:  

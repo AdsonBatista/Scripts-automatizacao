@@ -2,8 +2,8 @@ Este é um Google Script voltado para emissão de recibos gerais do Ramo Estudan
 
 Suas funções são:
 
-* Produzir e enviar e o arquivo de recibo em duas copias. Uma para a pessoa e outra para o ramo.
-  * Os arquivos são nomeados com um padrão
-  * Os arquivos são depositados numa pasta do Google Drive.
-  * Os dados são organizados em uma Planilha no próprio Google
-* Enviar um e-mail para a pessoa efetuou o pagamento e um para o Ramo Estudantil como backup.
+* Receber os dados do formulário e organiza-los numa planilha.
+* Cria uma movimentação e ID unico para ela. 
+* Cria um Recibo em pdf e renomeia utilizando o ID.
+* Salva o Recibo no driver do ramo em uma pasta já definida previamente.
+* Envia um e-mail para a pessoa efetuou  o pagamento com o recibo em PDF e com o link do driver caso ela prefira.

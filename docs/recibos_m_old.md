@@ -1,11 +1,13 @@
 # Estrutura do Projeto
-Para o devido funcionamento deste *script* é necessário de 5 arquivos:
+Para o devido funcionamento deste *script* é necessárias 8 pastas que serão utilizadas para gravar os recibos de 3 arquivos que são:
 
  * Uma "Formulário Google". - Ele servirá de entrada de dados do sistema é o único "arquivo" que o usuário final terá acesso.
- * Uma "Planilha Google" - Ela é seu banco de dados, aqui serão depositadas todas as respostas do seu formulário, é onde serão feitas algumas operações necessárias e o *script* que fará as funções mais avançadas é criado nesta planilha.
- * Um Script. - Ele é criado diretamente na planilha, ele é responsável pelas interações entre APIs do Google.
- * Um Arquivo HTML - Ele é o modelo utilizado para gerar o e-mail enviado.
  * Um "Documentos Google". - Ele é o modelo utilizado para gerar o recibo propriamente dito.
+ * Uma "Planilha Google" - Ela é seu banco de dados, aqui serão depositadas todas as respostas do seu formulário, é onde serão feitas algumas operações necessárias e o *script* que fará as funções mais avançadas é criado nesta planilha.
+     * Um Script. - Ele é criado diretamente na planilha, ele é responsável pelas interações entre APIs do Google, e ele é composto por 3 arquivos:
+         * rec_email_template.html - É o modelo utilizado para gerar o e-mail enviado.
+         * recibo.gs:  Contém a rotina principal do script.
+         * auxiliar.gs: Contém as funções auxiliares utilizadas. 
 
 ## O formulário
 
@@ -644,6 +646,7 @@ Está função é a função que trata os dados do formulário para gerar o reci
         var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
         var assunto = "Recibo IEEE UFABC";
         MailApp.sendEmail(destinatariorecibo, assunto, html, {
+            // bcc: 'outroemail@email.ext',
             name: remetente,
             htmlBody: htmlBody,
             attachments: recibo_pdf
@@ -958,10 +961,11 @@ Posteriormente defino as variáveis `remetente` e `assunto` que armazenam respec
 
 
 
-Por fim utilizo a função abaixo para enviar o e-mail para o destinatário do recibo. o destinatário do recibo já foi definido na seção [Extraindo dados da Pasta Recibos](#extraindo-dados-da-pasta-recibos)
+Por fim utilizo a função abaixo para enviar o e-mail para o destinatário do recibo. O destinatário do recibo já foi definido na seção [Extraindo dados da Pasta Recibos](#extraindo-dados-da-pasta-recibos), caso você deseje enviar por padrão uma cópia deste e-mail para outro destinatário basta modificar o campo `bcc` comentado no algorítimo abaixo:
 
 ```js   
     MailApp.sendEmail(destinatariorecibo, assunto, html, {
+        // bcc: 'outroemail@email.ext',
         name: remetente,
         htmlBody: htmlBody,
         attachments: recibo_pdf
@@ -1013,10 +1017,9 @@ Nas seções [Tratando os dados extraídos](#tratando-os-dados-extraidos), [Extr
 
 ## Script V2
 separação em funções....
-todo: colocar a urlarquivo no e-mail!
 todo: fazer documentação da versão dois do script
 todo: escrever sobre a trigger para que o recibo funcione corretamente a cada submissão.
-todo: colocar cc e cco no e-mail
+
 
 
 ??? note "Abra para ver o código da função completo"
