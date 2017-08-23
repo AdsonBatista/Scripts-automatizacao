@@ -53,7 +53,7 @@ pages:
   - Os Projetos: scripts.md
   - Projetos internos:
     - Tesouraria:
-      Introdução: tesouraria.md
+      - Introdução: tesouraria.md
       - Recibos: 
         - Funcionalidades: recibos_i.md
         - Implementação: #recibos_m.md
