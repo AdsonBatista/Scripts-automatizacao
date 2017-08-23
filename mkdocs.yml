@@ -54,20 +54,20 @@ pages:
     - Tesouraria:
       - Introdução: tesouraria.md
       - Recibos: 
-        - Resumo do Projeto: recibos_i.md
+        - Resumo do Projeto: recibos/recibos_i.md
         - Implementação: #recibos_m.md
-          - Formulário: recibos_m_form.md
-          - Modelo de recibo: recibos_m_docs.md
+          - Formulário: recibos/recibos_m_form.md
+          - Modelo de recibo: recibos/recibos_m_docs.md
           - Planilha:
-            - Pastas de trabalho: recibos_m_planilha.md
+            - Pastas de trabalho: recibos/recibos_m_planilha.md
             - Script:
               # - Estrutura: recibos_m_planilha_estr.md
-              - Auxiliar.gs: recibos_m_planilha_aux.md
-              - rec_mail_template.html: recibos_m_planilha_html.md
-              - recibo.gs 1.0: recibos_m_planilha_rec1.md
-              - recibo.gs 2.0: recibos_m_planilha_rec2.md
-        - Melhorias: recibos_t.md
-        - Changelog: recibos_c.md
+              - Auxiliar.gs: recibos/recibos_m_planilha_aux.md
+              - rec_mail_template.html: recibos/recibos_m_planilha_html.md
+              - recibo.gs 1.0: recibos/recibos_m_planilha_rec1.md
+              - recibo.gs 2.0: recibos/recibos_m_planilha_rec2.md
+        - Melhorias: recibos/recibos_t.md
+        - Changelog: recibos/recibos_c.md
       - Movimentações:  
         - Funcionalidades: movimentacoes_i.md
         #- Implementação e manutenção: movimentacoes_m.md
