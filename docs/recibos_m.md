@@ -245,25 +245,54 @@ Crie um arquivo HTML no script utilizando os passos mostrados na seção [Script
 ``` html
 <!DOCTYPE html>
 <html>
-   <head>
-      <base target="_top">
-   </head>
-   <body>
-      <div>
-        <!-- corpo  -->
-         <h2 class="center-align teal-text">Olá <?= nome_completo ?>!</h2>
-        Você está recebendo este e-mail pois no dia <b> <?= datarecibo  ?></b>
-        você efetuou um pagamento no valor de <b><?= valor ?>(<?= valorextenso ?>)</b>referente ao<b><?= evento ?></b><br>
-        Seu recibo foi anexado neste email e pode ser identificado pelo <b> <?=  idrecibo  ?></b> .
-        </div>
-          <!-- Assinatura  -->
-      <img src="https://drive.google.com/uc?id=0B8CcpExpMKFlZXNLdzJKWU9Wcm8" width="150">
-   </body>
+<body>
+    <div>
+        <h2 class="center-align teal-text">Olá <?= nome_completo ?>!</h2> Você está recebendo este e-mail pois no dia <b> <?= datarecibo  ?></b> você efetuou um pagamento no valor de <b>R$<?= valor ?> (<?= valorextenso ?>)</b> referente a/ao <b><?= evento ?></b>. Seu recibo foi anexado neste email e se necessario pode ser identificado pelo ID: <b> <?=  idrecibo  ?></b>.
+    </div>
+    <!-- Assinatura  -->
+    <br>
+    <hr>
+    <table>
+        <tr>
+            <td>
+                <img src="https://drive.google.com/uc?id=0B8CcpExpMKFlZXNLdzJKWU9Wcm8" width="150">
+            </td>
+            <td> 
+                <b style="word-space:2em">&nbsp;&nbsp;</b> Site: ieeeufabc.org
+                <br>
+                <b style="word-space:2em">&nbsp;&nbsp;</b> Facebook: facebook.com/ieee.ufabc
+                <br>
+                <b style="word-space:2em">&nbsp;&nbsp;</b> Twitter: @ieeeufabc
+                <br>
+            </td>
+        </tr>
+    </table>
+</body>
 </html>
 ```
 
 ## Script Arquivo gs
 
+### Função formatMoney(casas, separador dec, separado milhar)
+```js
+Number.prototype.formatMoney = function(c, d, t){
+var n = this, 
+    c = isNaN(c = Math.abs(c)) ? 2 : c, 
+    d = d == undefined ? "." : d, 
+    t = t == undefined ? "," : t, 
+    s = n < 0 ? "-" : "", 
+    i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))), 
+    j = (j = i.length) > 3 ? j % 3 : 0;
+   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ };
+```
+
+Formata um numro para um o formato decimal com número de casas "C", o separador decimal padrão é "." e o separador milhar padrão é ","
+
+No exemplo aplicado abaixo a saida seria 25,50
+```js
+(25.5).formatMoney(2, ',', '');
+```
 
 ### Função right(valor)
 
@@ -505,7 +534,7 @@ Está função foi desenvolvida pelo Marcelo Camargo e copiada deste [link](http
     ```
 
 
-Ela serve para escrever um número por extenso.
+Ela serve para escrever um número por extenso. O valor de entrada deve obtigatoriamente ser definido como Number!
 
 No exemplo aplicado abaixo a saida é "cento e cinco". 
 ``` js
@@ -720,16 +749,16 @@ A primeira coisa que devemos fazer em nossa função é definir quais são os do
     var past_adm = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Pasta adm")
 ```
 
-Foram criadas 3 variáveis a primeira delas é `recibotemplateId` contém o Id unico de um do meu arquivo de template criado anteriomente. 
+Foram criadas 3 variáveis a primeira delas é `recibotemplateId` contém o Id único de um do meu arquivo de template criado anteriormente. 
 
-As variáveis `plan_recibos` e `plan_adm` pegam a planilha ativa e selecionam respectivamente as pastas de trabalho "Recibos" e "Pasta adm". Ou seja quando eu chamar a variavel `plan_recibos` ou `past_adm` eu estou chamando abrindo a pasta de trabalho correspondente.
+As variáveis `plan_recibos` e `plan_adm` pegam a planilha ativa e selecionam respectivamente as pastas de trabalho "Recibos" e "Pasta adm". Ou seja quando eu chamar a variável `plan_recibos` ou `past_adm` eu estou chamando abrindo a pasta de trabalho correspondente.
 
 !!! note ""
-    No nosso caso pegar uma planilha ativa é um metódo funcional, pois o Google Form ativa uma planilha para escrever os dados quando recebe os dados e nos estaremos utilizando justamente essa planilha para trabalhar com os dados. Se desejar buscar a planilha pelo seu Id substitua `getActiveSpreadsheet()` por `openById(Id da planilha)`
+    No nosso caso pegar uma planilha ativa é um método funcional, pois o Google Form ativa uma planilha para escrever os dados quando recebe os dados e nos estaremos utilizando justamente essa planilha para trabalhar com os dados. Se desejar buscar a planilha pelo seu Id substitua `getActiveSpreadsheet()` por `openById(Id da planilha)`
 
-    O comando `getSheetByName("Nome da pasta")` poderia ser substituido pelo comando `getSheets()["posição da pasta"]` sendo que a primeira pasta é tem a posição 0
+    O comando `getSheetByName("Nome da pasta")` poderia ser substituído pelo comando `getSheets()["posição da pasta"]` sendo que a primeira pasta é tem a posição 0
 
-A seguir adicionamos as variáveis que indicarão todas as possiveis pastas que para salvar meus recibos. O método utilizado para escolher qual destas pastas será utilizada para salvar o arquivo você pode ver na seção [Salvando os recibos no Driver](#salvando-recibo-no-driver).
+A seguir adicionamos as variáveis que indicarão todas as possíveis pastas que para salvar meus recibos. O método utilizado para escolher qual destas pastas será utilizada para salvar o arquivo você pode ver na seção [Salvando os recibos no Driver](#salvando-recibo-no-driver).
 
 ```js
     var pasta_ramo = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");
@@ -743,9 +772,9 @@ A seguir adicionamos as variáveis que indicarão todas as possiveis pastas que 
 ```
 
 !!! note ""
-    O comando `getFolderById("ID da pasta")` poderia ser substituido pelo comando `getFoldersByName("Nome da Pasta")`. O primeiro vai exatamente na pasta com aquele ID o segundo ficará varendo o driver atrás do de uma pasta com aquele nome.
+    O comando `getFolderById("ID da pasta")` poderia ser substituído pelo comando `getFoldersByName("Nome da Pasta")`. O primeiro vai exatamente na pasta com aquele ID o segundo ficará varrendo o Google Driver atrás do de uma pasta com aquele nome.
 
-#### Extraindo dados da Pasta Recibos.
+#### Extraindo dados da Pasta Recibos
 
 Depois de indicar quais serão documentos vamos trabalhar devemos pegar os dados das planilhas para isso utilizamos aos seguintes comandos:
 
@@ -754,14 +783,14 @@ Depois de indicar quais serão documentos vamos trabalhar devemos pegar os dados
     var ultimaLinha = plan_recibos.getLastRow() - 1;
 ```
 
-A variavel `dados_recibos` pega toda os valores preenchidos na pasta de trabalho `plan_recibos` essas variáveis são quardadas em vetores numerados em que o vetor "0" armazena os dados da linha 1 da planilha. A variável ultima linha ela nos dá a ultima linha preenchida pasta de trabalho.
+A variável `dados_recibos` pega toda os valores preenchidos na pasta de trabalho `plan_recibos` essas variáveis são guardadas em vetores numerados em que o vetor "0" armazena os dados da linha 1 da planilha. A variável ultima linha ela nos dá a ultima linha preenchida pasta de trabalho.
 
 !!! important ""
-    O comando `getLastRow()` me retorna um número, este numéro indica a ultima linha em branco da tabela de dados! Como este comando retorna um número eu posso fazer operações matemáticas com ele. Então para selecionar a ultima linha preenchida na variável ultima linha eu subtrai "um" deste número.
+    O comando `getLastRow()` me retorna um número, este número indica a ultima linha em branco da tabela de dados! Como este comando retorna um número eu posso fazer operações matemáticas com ele. Então para selecionar a ultima linha preenchida na variável ultima linha eu subtrai "um" deste número.
 
-Ao seguirmos os passos acima transformamos nossa tabela de dados em uma Matriz de dados. Para extrair os dados da nossa matriz utilizamos o comando `matriz de dados[linha][coluna]`em que a celula A1 seria indicada pela linha 0 e coluna 0.
+Ao seguirmos os passos acima transformamos nossa tabela de dados em uma Matriz de dados. Para extrair os dados da nossa matriz utilizamos o comando `matriz de dados[linha][coluna]`em que a célula A1 seria indicada pela linha 0 e coluna 0.
 
-Os comandos abaixo se aplicados em uma planilha como a criada anteriormente guardam em suas variaveis os respectivos dados da ultima linha preenchida: Data do recibo, Evento, Unidade responsável, Nome completo, CPF, Valor pago, Ano da transação, Mês da transaçao e o e-mail registrado no formulário.
+Os comandos abaixo se aplicados em uma planilha como a criada anteriormente guardam em suas variáveis os respectivos dados da ultima linha preenchida: Data do recibo, Evento, Unidade responsável, Nome completo, CPF, Valor pago, Ano da transação, Mês da transação e o e-mail registrado no formulário.
 
 ```js
 // extrair dados
@@ -778,7 +807,7 @@ Os comandos abaixo se aplicados em uma planilha como a criada anteriormente guar
 
 #### Tratando os dados extraidos
 
-Para melhor efeito visual ou necessidade alguns dados devem ser tratados para isso utilizamos os seguintes algoritimos:
+Para melhor efeito visual ou necessidade alguns dados devem ser tratados para isso utilizamos os seguintes algorítimos:
 
 ```js
     if (CPF.lenght != 11) {
@@ -787,28 +816,35 @@ Para melhor efeito visual ou necessidade alguns dados devem ser tratados para is
     CPF = CPF.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
     ano = ano.toString().right(2);
     var valorextenso = Extenso(valor);
+    valor = valor.formatMoney(3, ',', '');
+
 ```
 
-O primeiro `if` é responsavel por verificar se o CPF é uma string de 11 casas. caso não seja ele adiciona um 0 a esqueda. Posteriormente o CPF é formatado para o formato 123.456.789-11 por meio da expressão regular do algoritmo.
+O primeiro `if` é responsável por verificar se o CPF é uma *string* de 11 casas. caso não seja ele adiciona um 0 a esquerda. Posteriormente o CPF é formatado para o formato 123.456.789-11 por meio da expressão regular do algoritmo.
 
 !!! note ""
-    O CPF é armazenado como um número na planilha. Alguns CPF's iniciam com 0 então nestes casos o CPF ficaria com 10 algarismos. Para solucionar este problema o algoritmo transforma o CPF numa string verifica se ele tem 11 caracteres se não tiver adiciona um 0 a esqueda.
+    O CPF é armazenado como um número na planilha. Alguns CPF's iniciam com 0 então nestes casos o CPF ficaria com 10 algarismos. Para solucionar este problema o algoritmo transforma o CPF numa *string* verifica se ele tem 11 caracteres se não tiver adiciona um 0 a esquerda.
 
 ```js
     ano = ano.toString().right(2);
   
 ```
 
-A variavel `ano` é um numéro de 4 digitos nete campo ela é transformada numa string e posteriormente dois caracteres da direta são armazenados
+A variável `ano` é um número de 4 dígitos neste campo ela é transformada numa *string* e posteriormente dois caracteres da direta são armazenados
 
 ```js  
   var valorextenso = Extenso(valor);
 ```
 
-A variavel `valorextenso` é a string que contém o numéro do campo "valor" escrito na sua forma extensa.
+A variável `valorextenso` é a *string* que contém o número do campo "valor" escrito na sua forma extensa. Para fazermos isso é necessário utilizamos a função Extenso e para seu funcionamento correto é necessário que a variável `valor` seja definida como *Number*!
 
+```js
+    valor = valor.formatMoney(2, ',', '');
+```
 
-A variavel `idunidade` é escrito a partir do valor extraido e armazenado na variável `unidade`. Para determinar qual valor deve ser escrito é utilizada a seguinte função:
+Reescrevo a variável valor no formato de *string* só que agora no formato com duas casas decimais utilizando o separador ",". É muito importante que essa linha venha depois da função Extenso.
+
+A variável `idunidade` é escrito a partir do valor extraído e armazenado na variável `unidade`. Para determinar qual valor deve ser escrito é utilizada a seguinte função:
 
 ```js
     var idunidade;
@@ -831,10 +867,10 @@ A variavel `idunidade` é escrito a partir do valor extraido e armazenado na var
     }
 ```
 
-Veja que no inicio do algoritimo a variável `idunidade` é definida, mas só tem um valor tribuido quando ela respeita uma das condições de igualdade.
+Veja que no inicio do algorítimo a variável `idunidade` é definida, mas só tem um valor atribuído quando ela respeita uma das condições de igualdade.
 
 !!! attention ""
-    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
+    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraídos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algorítimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
 
 #### Extraindo dados da Pasta Adm
 
@@ -880,26 +916,26 @@ t - **E**ntrada ou **S**aída
 K - **M**ovimentação, **R**ecibo, **T**ransferência
 ```
 
-A variavel `idrecibo` para este algoritimo é definida definidada pela concatenação de variaveis como é mostrado no algorimo abaixo.
+A variável `idrecibo` para este algorítimo é definida definida pela concatenação de variáveis como é mostrado no código abaixo.
 
 ```js
     var idrecibo = idunidade + mes + numrecibo + ano + "ER";
 ```
 
-O comando `setValue("valor")` mostrado na linha de código abaixo é responsavel por escrever o `idrecibo` na primeira coluna da linha que estamos trabalhando.
+O comando `setValue("valor")` mostrado na linha de código abaixo é responsável por escrever o `idrecibo` na primeira coluna da linha que estamos trabalhando.
 
 ```js
    dados_recibos.getRange(ultimaLinha+1, 1).setValue(idrecibo);
 ```
 
 !!! attention ""
-    Comando getRange(linha, coluna) tem a celula "A1" como linha 1 e coluna 1 diferentemente do que foi considerado na seção **Extraindo dados da Pasta Recibos**. A soma de uma unidade (`+1`)   no campo referente a linha é para "corrigir" está caracterisitica.
+    Comando getRange(linha, coluna) tem a célula "A1" como linha 1 e coluna 1 diferentemente do que foi considerado na seção **Extraindo dados da Pasta Recibos**. A soma de uma unidade (`+1`)   no campo referente a linha é para "corrigir" está característica.
 
 #### Construindo o Recibo
 
-Para cronstruir o Recibo iremos utilizar o template criado na seção [Doc](#doc)jutamente com os dados extraidos e tratados nos passo anteriories.
+Para construir o Recibo iremos utilizar o *template* criado na seção [Doc](#doc) juntamente com os dados extraídos e tratados nos passo anteriores.
 
-Para isso devemos criar uma copia temporaria do recibo e pegar o numero de ID dela  `idcopia`, abrir essa e armazenar essa cópia na variável ``docCopia`` para então copiar o texto deste documento na variavel `textoCopia`. Para fazer isso utilizamos as seguintes funções:
+Para isso devemos criar uma copia temporária do recibo e pegar o numero de ID dela  `idcopia`, abrir essa e armazenar essa cópia na variável ``docCopia`` para então copiar o texto deste documento na variável `textoCopia`. Para fazer isso utilizamos as seguintes funções:
 
 ```js
 // Cria um recibo temporário, recupera o  e o abre
@@ -912,7 +948,7 @@ Para isso devemos criar uma copia temporaria do recibo e pegar o numero de ID de
     var textoCopia = docCopia.getActiveSection();
 ```
 
-Agora que temos o texto armazenado na variável `textoCopia` iremos substituir partes deste texto pelo valor das váriaveis correspondentes feito isso iremos salvar e fechar o documento `docCopia`. Para isso utilizamos os seguintes comandos:
+Agora que temos o texto armazenado na variável `textoCopia` iremos substituir partes deste texto pelo valor das variáveis correspondentes feito isso iremos salvar e fechar o documento `docCopia`. Para isso utilizamos os seguintes comandos:
 
 ```js
     textoCopia.replaceText("NOME", nome_completo);
@@ -925,13 +961,13 @@ Agora que temos o texto armazenado na variável `textoCopia` iremos substituir p
     docCopia.saveAndClose();
 ```
 
-Agora utilizamos comando abaixo para pegar o arquivo por meio de seu ID armazenado na variável `idCopia` para converter para PDF e armazenar o PDF na variavel `recibo_pdf`. Com está ultima variavel podemos fazer operações como salva-lo no drive e/ou envia-lo por e-mail.
+Agora utilizamos comando abaixo para pegar o arquivo por meio de seu ID armazenado na variável `idCopia` para converter para PDF e armazenar o PDF na variável `recibo_pdf`. Com está ultima variável podemos fazer operações como salva-lo no drive e/ou envia-lo por e-mail.
 
 ```js
     var recibo_pdf = DriveApp.getFileById(idCopia).getAs("application/pdf");
 ```
 
-Depois de converter para pdf e o armazenar em uma variavel eu posso deletar o arquivo temporario criado para isso utilizo o comando:
+Depois de converter para pdf e o armazenar em uma variável eu posso deletar o arquivo temporário criado para isso utilizo o comando:
 
 ```js
   DriveApp.getFileById(idCopia).setTrashed(true);
@@ -962,7 +998,7 @@ Na seção [Acessando os documentos e locais necessários](#acessando_os documen
 ```
 
 !!! attention ""
-    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
+    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algorítimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostrada na seção [If Elegante](#if-elegante).
 
 Para salvar o recibo na pasta correta utilizamos a função abaixo:
 
@@ -971,16 +1007,16 @@ pasta_recibo.createFile(recibo_pdf)
 ```
 
 ??? note "Se voce tiver uma unica pasta!"
-    Caso todos os recibos sejam salvos apenas em uma pasta substituimos todas as pastas definidas na seçao [Acessando os documentos e locais necessários](#acessando-os-documentos-e-locais-necessarios) pela função: `#js var pasta_recibo = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");`
+    Caso todos os recibos sejam salvos apenas em uma pasta substituimos todas as pastas definidas na seçao [Acessando os documentos e locais necessários](#acessando-os-documentos-e-locais-necessarios) pela função: ` var pasta_recibo = DriveApp.getFolderById("0B8CcpExpMKFlZElETVFjOGd0elk");`
 
-    O laço `if` responsável pela escolha das pastas na seção [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) ou os campos que fazem essa função no algoritimo da seção [If Elegante](#if-elegante) devem ser removidos.
+    O laço `if` responsável pela escolha das pastas na seção [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) ou os campos que fazem essa função no algorítimo da seção [If Elegante](#if-elegante) devem ser removidos.
 
-#### Construindo e evniando o E-mail
+#### Construindo e enviando o E-mail
 
-O corpo do e-mail é feito com o template Html feito na seção [Modelo HTML](#modelo-html)
+O corpo do e-mail é feito com o *template* Html feito na seção [Modelo HTML](#modelo-html) para escreve-lo utilizamos o seguinte algorítimo:
 
 ```js
-var html = HtmlService.createTemplateFromFile('rec_email_template');
+    var html = HtmlService.createTemplateFromFile('rec_email_template');
     html.nome_completo = nome_completo;
     html.datarecibo = datarecibo;
     html.valor = valor;
@@ -988,43 +1024,35 @@ var html = HtmlService.createTemplateFromFile('rec_email_template');
     html.evento = evento;
     html.idrecibo = idrecibo;
     var htmlBody = html.evaluate().getContent();    
+```
 
-    // Dados do Rementente
+Na primeira linha do algorítimo eu crio a variável `html` e nela armazeno um *template* que utiliza como modelo o arquivo criado anteriormente.
+Nas linhas seguintes eu falo que as variáveis desse modelo são iguais as armazenadas pelo *script*.
+
+```
+htlm.variavel_template = variavel_script
+```
+
+Na ultima linha eu crio a variável `htmlBody` nela armazeno o conteúdo que da variável `html`.
+
+Posteriormente defino a variável  remetente que é o endereço de e-mail que irá aparecer como remetente do e-mail.
+```js
     var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
-    // MailApp.sendEmail(destinatariorecibo, subject, body, {name: remetente, attachments: recibo_pdf});
+```
+
+Por fim utilizo a função abaixo para enviar o e-mail para o destinatário do recibo. o destinatário do recibo já foi definido na seção [Extraindo dados da Pasta Recibos](#extraindo-dados-da-pasta-recibos)
+
+```js   
     MailApp.sendEmail(destinatariorecibo, subject, html, {
-        name: remetente,
-        htmlBody: htmlBody,
-        attachments: recibo_pdf
-    });
-    // envia o email recibo para email do ramo  
-    MailApp.sendEmail(destinatariocanhoto, subject, html, {
         name: remetente,
         htmlBody: htmlBody,
         attachments: recibo_pdf
     });
 ```
 
-
-??? note "Corpo do e-mail sem utilizar HTML!"
-    ```js
-        var subject = "Recibo IEEE UFABC";
-        var html =
-            '<body>' +
-            '<h2><b>Olá ' + nome_completo + '!' + '</h2></b>' +
-            'Você está recebendo este e-mail pois no dia ' + '<b>' + datarecibo + '</b>' +
-            ' você efetuou um pagamento no valor de <b> ' + valor + ' (' + valorextenso + ') ' + '</b>' + 'referente ao ' + '<b>' + evento + '</b>' + '<br>' +
-            'Seu recibo foi anexado neste email e pode ser identificado pelo ' + '<b>' + idrecibo + '</b>' + '.' +
-            '</body>'
-        var remetente = "IEEE UFABC<contato@ieeeufabc.org>";
-    ```
-
-#### Enviando o E-mail
-
-
 ### If Elegante
 
-Nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) definimos as variaveis idunidade, numrecibo e pasta_recibo por meio de um laço `if` a estrutura utilizada nestes 3 laços foi a mesma então para maior elegância do código no algoritimo completo que mostrado na seção [Função Recibo](#funcao-recibo) utilizamos a versão mostrada abaixo;
+Nas seções [Tratando os dados extraídos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) definimos as variáveis `idunidade`, `numrecibo` e `pasta_recibo` por meio de um laço `if` a estrutura utilizada nestes 3 laços foi a mesma então para maior elegância do código no algorítimo completo que mostrado na seção [Função Recibo](#funcao-recibo) utilizamos a versão mostrada abaixo;
 
 ``` js
     var idunidade;
