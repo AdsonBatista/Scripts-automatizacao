@@ -23,15 +23,15 @@ Para o devido funcionamento deste *script* é necessárias 8 pastas que serão u
 
 Sua implementação foi dividida nas seguintes etapas que serão exploradas nas proximas páginas:
 
-* [Criação do formulário](recibos/recibos_m_form.md)
-* [Criação do modelo de recibo](recibos/recibos_m_docs.md)
+* [Criação do formulário](reciborecibos_m_form.md)
+* [Criação do modelo de recibo](recibos_m_docs.md)
 * Manipulações com Planilha
-  * [Criação das pastas de trabalho](recibos/recibos_m_planilha.md)
-  * [Produção do Script](recibos/recibos_m_planilha_estr.md)
-    * [Arquivo Auxiliar.gs](recibos/recibos_m_planilha_aux.md)
-    * [Arquivo rec_mail_template.html](recibos/recibos_m_planilha_html.md)
-    * [Arquivo recibo 1.0](recibos/recibos_m_planilha_rec1.md)
-    * [Arquivo recibo 2.0:](recibos/recibos_m_planilha_rec2.md)
+  * [Criação das pastas de trabalho](recibos_m_planilha.md)
+  * [Produção do Script](recibos_m_planilha_estr.md)
+    * [Arquivo Auxiliar.gs](recibos_m_planilha_aux.md)
+    * [Arquivo rec_mail_template.html](recibos_m_planilha_html.md)
+    * [Arquivo recibo 1.0](recibos_m_planilha_rec1.md)
+    * [Arquivo recibo 2.0:](recibos_m_planilha_rec2.md)
 
 ## Manutenção do Projeto
 
