@@ -1,6 +1,5 @@
-# Scripts 
 
-Atualmente os scripts desenvolvidos ou em desenvolvimento podem ser dividios em **Projetos Internos**, aqueles voltados para administração do ramo, e **Projetos Derivados**, aqueles que foram adptados para o uso em outros locais, os projetos conhecidos são listados abaixo.
+Atualmente os projetos desenvolvidos ou em desenvolvimento podem ser dividios em **Projetos Internos**, aqueles voltados para administração do ramo, e **Projetos Derivados**, aqueles que foram adptados para o uso em outros locais, os projetos conhecidos são listados abaixo.
 
 
 Se você adaptou o seu projeto a partir do nosso adicione ele no nosso repositório e nesta lista! 

@@ -50,34 +50,35 @@ markdown_extensions:
   - pymdownx.progressbar
 pages:
   - Início: index.md
-  - Scripts: scripts.md
-  #- Projetos internos:
-  - Tesouraria:
-    - Recibos: 
-      - Funcionalidades: recibos_i.md
-      - Implementação: #recibos_m.md
-        - Estrutura:  recibos_m_2.md
-        - Formulário: recibos_m_form.md
-        - Modelo de recibo: recibos_m_docs.md
-        - Planilha:
-          - Pastas de trabalho: recibos_m_planilha.md
-          - Script:
-            # - Estrutura: recibos_m_planilha_estr.md
-            - Auxiliar.gs: recibos_m_planilha_aux.md
-            - rec_mail_template.html: recibos_m_planilha_html.md
-            - recibo 1.0: recibos_m_planilha_rec1.md
-            - recibo 2.0: recibos_m_planilha_rec2.md
-      - Melhorias: recibos_t.md
-      - Changelog: recibos_c.md
-    - Movimentações:  
-      - Funcionalidades: movimentacoes_i.md
-      #- Implementação e manutenção: movimentacoes_m.md
-      - Melhorias: movimentacoes_t.md
-      - Changelog: movimentacoes_c.md
-  - Agenda: 
-    - Funcionalidades: agenda_i.md
-    - Melhorias: agenda_t.md
-    - ChangeLog: agenda_c.md 
+  - Os Projetos: scripts.md
+  - Projetos internos:
+    - Tesouraria:
+      Introdução: tesouraria.md
+      - Recibos: 
+        - Funcionalidades: recibos_i.md
+        - Implementação: #recibos_m.md
+          - Estrutura:  recibos_m_2.md
+          - Formulário: recibos_m_form.md
+          - Modelo de recibo: recibos_m_docs.md
+          - Planilha:
+            - Pastas de trabalho: recibos_m_planilha.md
+            - Script:
+              # - Estrutura: recibos_m_planilha_estr.md
+              - Auxiliar.gs: recibos_m_planilha_aux.md
+              - rec_mail_template.html: recibos_m_planilha_html.md
+              - recibo 1.0: recibos_m_planilha_rec1.md
+              - recibo 2.0: recibos_m_planilha_rec2.md
+        - Melhorias: recibos_t.md
+        - Changelog: recibos_c.md
+      - Movimentações:  
+        - Funcionalidades: movimentacoes_i.md
+        #- Implementação e manutenção: movimentacoes_m.md
+        - Melhorias: movimentacoes_t.md
+        - Changelog: movimentacoes_c.md
+    - Agenda: 
+      - Funcionalidades: agenda_i.md
+      - Melhorias: agenda_t.md
+      - ChangeLog: agenda_c.md 
 
 extra_css:
   - extra.css
