@@ -1,14 +1,15 @@
 # Estrutura do Documento
-Para o devido funcionamento deste script é necessario de 4 arquivos:
+Para o devido funcionamento deste *script* é necessário de 5 arquivos:
 
- * Uma "Formulário Google". - Ele servirá de entrada de dados do sistema é o unico "arquivo" que o usuário final terá acesso.
- * Uma "Planilha Google" - Ela é seu banco de dados, aqui serão depositadas todas as respostas do seu formulário, é onde serão feitas algumas operações necessarias e o script que fará as funções mais avançadas é criado nesta planilha.
+ * Uma "Formulário Google". - Ele servirá de entrada de dados do sistema é o único "arquivo" que o usuário final terá acesso.
+ * Uma "Planilha Google" - Ela é seu banco de dados, aqui serão depositadas todas as respostas do seu formulário, é onde serão feitas algumas operações necessárias e o *script* que fará as funções mais avançadas é criado nesta planilha.
  * Um Script. - Ele é criado diretamente na planilha, ele é responsável pelas interações entre APIs do Google.
+ * Um Arquivo HTML - Ele é o modelo utilizado para gerar o e-mail enviado.
  * Um "Documentos Google". - Ele é o modelo utilizado para gerar o recibo propriamente dito.
 
 ## O formuário
 
-Devido a necessidade de modificações constantes (adicionar ou retirar itens) deste formulário optou-se pela utilização de um "Formumário Google", pois com ele é facil modificar o conteúdo dos seus campos.
+Devido a necessidade de modificações constantes (adicionar ou retirar itens) deste formulário optou-se pela utilização de um "Formulário Google", pois com ele é fácil modificar o conteúdo dos seus campos.
 Todos os campos do formulário são de preenchimento obrigatório.
 
 ### Senha de acesso:
@@ -27,7 +28,7 @@ Este campo é um campo de validação necessário para garantir que apenas membr
     
 	Mensagem de aviso em caso de erro: Senha inválida!
 
-Para modificar a senha você deve moficar a parte textual do validador. Os simbolos `^` e `$` são comandos da expressão regular. No exemplo da figura a o usuário deve escrever "suasenha" para conseguir validar a resposta.
+Para modificar a senha você deve modificar a parte textual do validador. Os símbolos `^` e `$` são comandos da expressão regular. No exemplo da figura a o usuário deve escrever "suasenha" para conseguir validar a resposta.
 
 [![rescibossenha](imagens/Recibos/cr_senha.png)](imagens/Recibos/cr_senha.png)
 
@@ -41,7 +42,7 @@ Neste Campo selecionarei o motivo gerador do recibo, ou seja o que o destinatár
 	Tipo de campo: Lista suspensa
 
 
-Para adicionar um campo basta digitar o produto na linha "Adicionar opção". É importante que o texto escrito neste campo faça sentido quando se ler a segunte frase ".... referente a(o) **OPÇÃO**". Para remover um campo basta clicar no "X" que está à direita. Na figura abaixo é possivel visualizar estas ações.
+Para adicionar um campo basta digitar o produto na linha "Adicionar opção". É importante que o texto escrito neste campo faça sentido quando se ler a seguinte frase ".... referente a(o) **OPÇÃO**". Para remover um campo basta clicar no "X" que está à direita. Na figura abaixo é possível visualizar estas ações.
 
 [![refetentea](imagens/Recibos/cr_refetentea.png)](imagens/Recibos/cr_refetentea.png)
 
@@ -54,7 +55,7 @@ Campo em que é será selecionada a unidade que está recebendo do dinheiro refe
 	Tipo de campo: Lista suspensa
 
 
-Para adicionar um campo basta digitar o produto na linha "Adicionar opção". É de extrema importência que utilizem apenas as siglas da unidade para referenciar ela. Para remover um campo basta clicar no "X" que está à direita. 
+Para adicionar um campo basta digitar o produto na linha "Adicionar opção". É de extrema importância que utilizem apenas as siglas da unidade para referenciar ela. Para remover um campo basta clicar no "X" que está à direita. 
 
 ### Nome Completo
 
@@ -69,7 +70,7 @@ Local onde deverá ser preenchido o nome completo da pessoa que receberá o reci
 
 ### CPF
 
-Campo para registro dos numéros do CPF da pessoa que adquiriu que receberá o recibo.
+Campo para registro dos números do CPF da pessoa que adquiriu que receberá o recibo.
 
 !!! note  ""
 	Titulo do campo: CPF.
@@ -88,7 +89,7 @@ Campo para registro dos numéros do CPF da pessoa que adquiriu que receberá o r
 
 [![CPF](imagens/Recibos/cr_CPF.png)](imagens/Recibos/cr_CPF.png)
 
-A expressão regular me diz para escrever 11 digitos numéricos qualquer coisa diferente disso ela me retornará a mensagem de erro.
+A expressão regular me diz para escrever 11 dígitos numéricos qualquer coisa diferente disso ela me retornará a mensagem de erro.
 
 ### Valor
 
@@ -111,10 +112,10 @@ Este campo é onde devemos digitar o valor do recibo.
 
 [![valor](imagens/Recibos/cr_valor.png)](imagens/Recibos/cr_valor.png)
 
-A expressão regular deste campo me permite digitar numeros de até duas casas decimais separados por ponto.
+A expressão regular deste campo me permite digitar números de até duas casas decimais separados por ponto.
 
 ### E-mail
-Campo para o E-mail da pessoa que receberá o recibo.
+Campo para o e-mail da pessoa que receberá o recibo.
 
 !!! note  ""
 	Titulo do campo: E-mail.
@@ -135,7 +136,7 @@ Campo para o E-mail da pessoa que receberá o recibo.
 
 ## A Planilha Google
 
-A planilha de respostas deve ser vinculáda ao formulário! Para fazer isso vá na aba respostas do seu form e clique nos tres pontinhos mostrado na figura abaixo.
+A planilha de respostas deve ser vinculada ao formulário! Para fazer isso vá na aba respostas do seu formulário e clique nos três pontinhos mostrado na figura abaixo.
 
 [![planilhaform](imagens/Recibos/cr_planilhaform.png)](imagens/Recibos/cr_planilhaform.png)
 
@@ -153,7 +154,7 @@ Troque o nome da sua pasta de trabalho para "Recibos", para fazer isso clique co
 [![renomearplanilha](imagens/Recibos/cr_renomearplanilha.png)](imagens/Recibos/cr_renomearplanilha.png)
 
 ### Campo 
-Vá insira uma nova coluna a esquerda da coluna "A" (clique na celula "A" com botão direito e vá em incerir coluna à esquerda)
+Vá insira uma nova coluna a esquerda da coluna "A" (clique na célula "A" com botão direito e vá em inserir coluna à esquerda)
 
 [![campo](imagens/Recibos/cr_campo.png)](imagens/Recibos/cr_campo.png)
 
@@ -163,7 +164,7 @@ Na nova A1 agora vazia escreva a palavra "". Sua nova planilha deve ficar assim:
 [![resultadocampo](imagens/Recibos/resultadocampo.png)](imagens/Recibos/resultadocampo.png)
 
 ### Data e Hora
-Crie uma nova coluna C de forma que a coluna B seja o "Carimbo de data/hora" e a coluna "D" seja a "Digite a senha de acesso:" na selula B1 digite a segunte formula:
+Crie uma nova coluna C de forma que a coluna B seja o "Carimbo de data/hora" e a coluna "D" seja a "Digite a senha de acesso:" na célula B1 digite a seguinte formula:
 
 [![novacolunaC](imagens/Recibos/cr_novacolunac.png)](imagens/Recibos/cr_novacolunac.png)
 
@@ -171,21 +172,21 @@ Crie uma nova coluna C de forma que a coluna B seja o "Carimbo de data/hora" e a
 =arrayFormula(SE(LIN(INDIRETO("B1:B" & TEXTO(CONT.VALORES(B:B);"#")))=1;"Data e Hora";TEXTO(DIA(B1:B);"##")&" de "& TEXTO(B1:B;"MMMM")&" de " & ANO(B1:B)&" às "&  TEXTO(HORA(B1:B);"00")&"h"&TEXTO(MINUTO(B1:B);"00")))
 ```
 
-Essa formula é responsabel por retirar pegar da Data da coluna B e transformar ela num texto com o seguinte formato: "1 de janeiro de 1900 às 00h00."
+Essa formula é responsável por retirar pegar da Data da coluna B e transformar ela num texto com o seguinte formato: "1 de janeiro de 1900 às 00h00."
 
 ### E-Mail
-O campo E-mail deve estar agora na coluna J. Você vai incerir 4 novas colunas a esqueda deste campo fazendo assim que seu campo e-mail vá para coluna "N".
+O campo e-mail deve estar agora na coluna J. Você vai inserir 4 novas colunas a esquerda deste campo fazendo assim que seu campo e-mail vá para coluna "N".
 
 [![cr_novocampoemail](imagens/Recibos/cr_novocampoemail.png)](imagens/Recibos/cr_novocampoemail.png)
 
 ### Tipo de Transação
-Na Coluna "J" (que deveria estar vazia) vá até a celula K1 e digite: 
+Na Coluna "J" (que deveria estar vazia) vá até a célula K1 e digite: 
 
 ``` 
 =arrayFormula(IF(ROW(INDIRECT("A1:A" & TEXT(COUNTA(A:A);"#")))=1;"Tipo de transação";"Entrada"))
 ```
 
-Assim para cada valor linha que for preenchida na planilha voce irá dizer que é uma "Entrada de Caixa"
+Assim para cada valor linha que for preenchida na planilha você irá dizer que é uma "Entrada de Caixa"
 
 ### Valor pago em Reais
 
@@ -195,7 +196,7 @@ Na celula K1 digete a seguinte formula, (a coluna L deve estar vazia)
 =query(A:K; "select I where I is not null format I 'R$#####0.00' ";1)
 ```
 
-Ela formata os valores de I (Compo "Valor pago em Reais:" do formulário) para formato monetário.
+Ela formata os valores de I (Como "Valor pago em Reais:" do formulário) para formato monetário.
 
 ### Ano
 Na Celula L1 digite a formula abaixo para extrair o ANO em que foi emitido o recibo.
@@ -212,7 +213,7 @@ Na Celula M1 digite a formula abaixo para extrair o MES em que foi emitido o rec
 ```
 
 ### Pasta Administrativa
-Crie uma nova Pasta de trabalho e troque seu nome para "Pasta adm". Nesta pasta vá ate A1 e digite Unidade, de A2 até A9 o nome das unidades (Ramo, AESS, CS, CPMT, EMBS, PES, RAS ,TEMS) na celula C1 digite: "Nº de Recibos +1" em C2 copie a seguinte formula:
+Crie uma nova Pasta de trabalho e troque seu nome para "Pasta adm". Nesta pasta vá ate A1 e digite Unidade, de A2 até A9 o nome das unidades (Ramo, AESS, CS, CPMT, EMBS, PES, RAS ,TEMS) na célula C1 digite: "Nº de Recibos +1" em C2 copie a seguinte formula:
 
 ``` 
 =CONT.SES(Recibos!F:F;A2;Recibos!L:L;"=2017")+1
@@ -230,7 +231,7 @@ O Script usado será criado a partir da Planilha que recebe dados do formulário
 
 [![criarscript](imagens/Recibos/sc_criarscript.png)](imagens/Recibos/sc_criarscript.png)
 
-Feito isso uma nova aba semelhante a figura abaixo será aberta, clique no campo "Projetosem título" e defina um nome para o Seu projeto.  
+Feito isso uma nova aba semelhante a figura abaixo será aberta, clique no campo "Projeto sem título" e defina um nome para o Seu projeto.  
 
 [![pgnovoscript](imagens/Recibos/sc_pgnovoscript.png)](imagens/Recibos/sc_pgnovoscript.png)
 
@@ -240,7 +241,7 @@ Para criar um novo arquivo vá no menu `file` depois em `New` e escolha o tipo d
 
 ## Script Modelo HTML
 
-Crie um arquivo HTML no script utilizando os passos mostrados na seção [Script](#script). Esse arquivo deve ser nomeado como `rec_email_template` e servirá como template do e-mail que será enviado! esse novo arquivo é escrito em HTML o modelo utilizado atualmente é:
+Crie um arquivo HTML no *script* utilizando os passos mostrados na seção [Script](#script). Esse arquivo deve ser nomeado como `rec_email_template` e servirá como *template* do e-mail que será enviado! esse novo arquivo é escrito em HTML o modelo utilizado atualmente é:
 
 ``` html
 <!DOCTYPE html>
@@ -271,7 +272,7 @@ Crie um arquivo HTML no script utilizando os passos mostrados na seção [Script
 </html>
 ```
 
-## Script Arquivo gs
+## Arquivo gs
 
 ### Função formatMoney(casas, separador dec, separado milhar)
 ```js
@@ -287,9 +288,9 @@ var n = this,
  };
 ```
 
-Formata um numro para um o formato decimal com número de casas "C", o separador decimal padrão é "." e o separador milhar padrão é ","
+Formata um número para um o formato decimal com número de casas "C", o separador decimal padrão é "." e o separador milhar padrão é ","
 
-No exemplo aplicado abaixo a saida seria 25,50
+No exemplo aplicado abaixo a saída seria 25,50
 ```js
 (25.5).formatMoney(2, ',', '');
 ```
@@ -302,9 +303,9 @@ String.prototype.right = function() {
 }
 ```
 
-Ela serve para extrair as x últimas letras de uma String.
+Ela serve para extrair as x últimas letras de uma *String*.
 
-No exemplo aplicado abaixo a saida é "plo". 
+No exemplo aplicado abaixo a saída é "plo". 
 ```js
 var texto = exemplo
 texto.right(3);
@@ -323,7 +324,7 @@ function pad(number, length) {
 
 Ela serve para escrever um número sempre utilizando um numero x de casas.
 
-No exemplo aplicado abaixo a saida é "0006". 
+No exemplo aplicado abaixo a saída é "0006". 
 
 ```js
 pad(6,4) 
@@ -353,7 +354,6 @@ Está função foi desenvolvida pelo Marcelo Camargo e copiada deste [link](http
     d = d * 100;
     d = d.toFixed(0);
     casas = i.toString().length;
-
     if (n == "?") {
         return "Função Extenso() Marcelo Camargo - marcelocamargo@gmail.com";
     }
@@ -365,12 +365,10 @@ Está função foi desenvolvida pelo Marcelo Camargo e copiada deste [link](http
             return "Erro: parâmetros de moeda";
         }
     }
-
     if (d == 100) {
         d = 0;
         i = i + 1;
     }
-
     if (casas > 12) {
         v5 = (parseInt(i / 1000000000000) * 1000000000000 - parseInt(i / 1000000000000000) * 1000000000000000) / 1000000000000;
         if (v5 > 0) {
@@ -447,7 +445,6 @@ Está função foi desenvolvida pelo Marcelo Camargo e copiada deste [link](http
             ri = ri + j + x;
         }
     }
-
     if (moeda == null) {
         moedas = "reais";
         moeda = "real";
@@ -467,7 +464,6 @@ Está função foi desenvolvida pelo Marcelo Camargo e copiada deste [link](http
             ri = ri + " " + moeda;
         }
     }
-
     if (d == 1) {
         rd = "um " + centavo;
     } else if (d > 1 && d < 100) {
@@ -478,16 +474,12 @@ Está função foi desenvolvida pelo Marcelo Camargo e copiada deste [link](http
     } else if (i == 0 && d == 0) {
         rd = "zero " + moeda;
     }
-
     if (d > 0 && i > 0) {
         rd = " e " + rd;
     }
-
     r = ri + rd;
     return r;
-
     }
-
     function CentenaExtenso(n) {
         var u, d, c, casas;
         var r = "";
@@ -534,16 +526,16 @@ Está função foi desenvolvida pelo Marcelo Camargo e copiada deste [link](http
     ```
 
 
-Ela serve para escrever um número por extenso. O valor de entrada deve obtigatoriamente ser definido como Number!
+Ela serve para escrever um número por extenso. O valor de entrada deve obrigatoriamente ser definido como *Number*!
 
-No exemplo aplicado abaixo a saida é "cento e cinco". 
+No exemplo aplicado abaixo a saída é "cento e cinco". 
 ``` js
 Extenso(105)
 ```
 
 ### Função Recibo
 
-Está função é a função que trata os dados do formulário para gerar o recibo e enviar suas copias para o destinatário e para uma pasta do driver. Por ela ser uma funçao muito grande irei fragmenta-lá e explicar a passo como construir ela.
+Está função é a função que trata os dados do formulário para gerar o recibo e enviar suas copias para o destinatário e para uma pasta do **Google Driver**. Por ela ser uma função muito grande irei fragmenta-lá e explicar a passo como construir ela.
 
 ??? note "Abra para ver o código da função completo"
     ``` js
@@ -749,12 +741,12 @@ A primeira coisa que devemos fazer em nossa função é definir quais são os do
     var past_adm = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Pasta adm")
 ```
 
-Foram criadas 3 variáveis a primeira delas é `recibotemplateId` contém o Id único de um do meu arquivo de template criado anteriormente. 
+Foram criadas 3 variáveis a primeira delas é `recibotemplateId` contém o Id único de um do meu arquivo de *template* criado anteriormente. 
 
 As variáveis `plan_recibos` e `plan_adm` pegam a planilha ativa e selecionam respectivamente as pastas de trabalho "Recibos" e "Pasta adm". Ou seja quando eu chamar a variável `plan_recibos` ou `past_adm` eu estou chamando abrindo a pasta de trabalho correspondente.
 
 !!! note ""
-    No nosso caso pegar uma planilha ativa é um método funcional, pois o Google Form ativa uma planilha para escrever os dados quando recebe os dados e nos estaremos utilizando justamente essa planilha para trabalhar com os dados. Se desejar buscar a planilha pelo seu Id substitua `getActiveSpreadsheet()` por `openById(Id da planilha)`
+    No nosso caso pegar uma planilha ativa é um método funcional, pois o *Google Form* ativa uma planilha para escrever os dados quando recebe os dados e nos estaremos utilizando justamente essa planilha para trabalhar com os dados. Se desejar buscar a planilha pelo seu Id substitua `getActiveSpreadsheet()` por `openById(Id da planilha)`
 
     O comando `getSheetByName("Nome da pasta")` poderia ser substituído pelo comando `getSheets()["posição da pasta"]` sendo que a primeira pasta é tem a posição 0
 
@@ -807,7 +799,7 @@ Os comandos abaixo se aplicados em uma planilha como a criada anteriormente guar
 
 #### Tratando os dados extraidos
 
-Para melhor efeito visual ou necessidade alguns dados devem ser tratados para isso utilizamos os seguintes algorítimos:
+Para melhor efeito visual ou necessidade alguns dados devem ser tratados para isso utilizamos o seguinte algorítimo:
 
 ```js
     if (CPF.lenght != 11) {
@@ -830,7 +822,7 @@ O primeiro `if` é responsável por verificar se o CPF é uma *string* de 11 cas
   
 ```
 
-A variável `ano` é um número de 4 dígitos neste campo ela é transformada numa *string* e posteriormente dois caracteres da direta são armazenados
+A variável `ano` é um número de 4 dígitos neste campo ela é transformada numa *string* e posteriormente dois caracteres da direta são armazenados.
 
 ```js  
   var valorextenso = Extenso(valor);
@@ -870,11 +862,11 @@ A variável `idunidade` é escrito a partir do valor extraído e armazenado na v
 Veja que no inicio do algorítimo a variável `idunidade` é definida, mas só tem um valor atribuído quando ela respeita uma das condições de igualdade.
 
 !!! attention ""
-    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraídos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algorítimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
+    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraídos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algorítimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostrada na seção [If Elegante](#if-elegante).
 
 #### Extraindo dados da Pasta Adm
 
-Ao criarmos a Pasta Adm na seção [Pasta Administrativa](#pasta-administrativa)indicamos qual é número que indica o próximo recibo emitido para pegarmos este numéro utilizamos o seguinte algoritimo:
+Ao criarmos a Pasta Adm na seção [Pasta Administrativa](#pasta-administrativa)indicamos qual é número que indica o próximo recibo emitido para pegarmos este número utilizamos o seguinte algorítimo:
 
 ```js
     var numrecibo;
@@ -897,10 +889,10 @@ Ao criarmos a Pasta Adm na seção [Pasta Administrativa](#pasta-administrativa)
     }
 ```
 
-A variável `numrecibo`só tem um valor tribuido quando ela respeita uma das condições de igualdade. Esse valor será igual ao valor extraido pelo comando `getValue` da celula em inidicada pelo comando `getRange(linha,coluna)` , em que o valor a celula A1 seria 1,1, formatado pela [Função pad(x,y)](#funcao-padxy) para ter sempre com 4 algoritimos.
+A variável `numrecibo`só tem um valor atribuído quando ela respeita uma das condições de igualdade. Esse valor será igual ao valor extraído pelo comando `getValue` da célula em indicada pelo comando `getRange(linha,coluna)` , em que o valor a célula A1 seria 1,1, formatado pela [Função pad(x,y)](#funcao-padxy) para ter sempre com 4 algorítimos.
 Função pad(x,y)
 !!! attention ""
-    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algoritimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostada na seção [If Elegante](#if-elegante).
+    Note que a estrutura utilizada neste laço `if` é semelhante nas seções [Tratando os dados extraidos](#tratando-os-dados-extraidos), [Extraindo dados da Pasta Adm](#extraindo-dados-da-pasta-adm) e [Salvando os recibos no Driver](#salvando-os-recibos-no-driver) então no algorítimo completo mostrado na seção [Função Recibo](#funcao-recibo) condensamos ele na forma mostRada na seção [If Elegante](#if-elegante).
 
 #### Definindo e registrando o do Recibo
 
