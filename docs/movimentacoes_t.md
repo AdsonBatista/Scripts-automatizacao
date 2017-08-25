@@ -6,12 +6,12 @@
 
 ---------------------------------------------------------------------------
 
-- [ ] Adicionar links de pastas de cada capitulo - Verificar necessidade - mov_code.gs
+- [ ] Adicionar links de pastas de cada capítulo - Verificar necessidade - mov_code.gs
 
 ---------------------------------------------------------------------------
 
 - [ ] Trocar as cores do formulário - mov_form.html
-- [ ] Definir e corrigir os links do botão flutuante - mov_form.html
+- [ ] Definir e corrigir os links dos botões flutuantes - mov_form.html
 
 ---------------------------------------------------------------------------
 
