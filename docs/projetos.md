@@ -38,7 +38,7 @@ Este é projeto **em processo de idealização**!
 
 ## Geração de Certificados
 
-Este é projeto **em processo de idealização**! 
+Este é Google Script em desenvolvimento! Por meio de um formulário, o usuário efetua o "cadastro" em alguma atividde do Ramo. Em uma planilha um operador decide se o "cadastro" será aceito ou não. Se aceito permite-se que um certificado seja gerado automaticamente  enviado por e-mail para a pessoa, uma copia do certificado é enviada para o drive do ramo. Para seu funcionamento é necessario um formulário, uma planilha, uma modelo de certificado.
 
 ## Controle de Horas Complementares 
 
@@ -48,8 +48,6 @@ Este é projeto **em processo de idealização**!
 
 Este é projeto **em desenvolvimento**!
 Projeto que é projeto tem documentação de uso e manutenção, pois é o documento que você lê agora e sua versão na Wiki do GitHub fazem parte deste projeto.
-
-
 
 # **Projetos Derivados:**
 
