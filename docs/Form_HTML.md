@@ -7,8 +7,7 @@ Durante a construção do script utilizaremos de alguns formulários HTML para c
 Para facilitar a construção de formulários com materializecss pode-se usar a ferramenta: https://forms.studio (veja aqui)
 
 ??? note "Abra para ver o código da função completo"
-
-    ​``` js
+   ​```html
       <!DOCTYPE html>
       <html>
          <head>
@@ -34,9 +33,7 @@ Para facilitar a construção de formulários com materializecss pode-se usar a 
                      <div class="FormContent">
                         <!-- "Formdiv" é a "div" para ocultar o formulário-->
                         <form novalidate="novalidate" id="forminner" style="display: initial;">
-    
                         <!-- "Accent" linha verde mais clara entre o formulário e o verde escuro-->
-                        
                         </form>
                      </div>
                   </div>
@@ -45,7 +42,6 @@ Para facilitar a construção de formulários com materializecss pode-se usar a 
                   </div>
                </div>
             </div>
-    
             <!-- Estutura "Modal" utilizada nos botões flutuantes -->
             <div id="modal1" class="modal modal-fixed-footer">
                <div class="modal-content">
@@ -67,12 +63,11 @@ Para facilitar a construção de formulários com materializecss pode-se usar a 
                   <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
                </ul>
             </div>
-            
             <!-- Importar funções "JavaScript" do arquivo JavaScript.html -->
             <?!= include('JavaScript'); ?>
          </body>
       </html>
-    ​```
+   ​```
 
 
 
