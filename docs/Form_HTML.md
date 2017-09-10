@@ -69,12 +69,3 @@ Para facilitar a construção de formulários com materializecss pode-se usar a 
       </html>
    ```
 
-
-
-
-
-
-
-
-   ```
-
