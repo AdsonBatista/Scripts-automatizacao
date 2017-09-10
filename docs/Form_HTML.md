@@ -7,7 +7,7 @@ Durante a construção do script utilizaremos de alguns formulários HTML para c
 Para facilitar a construção de formulários com materializecss pode-se usar a ferramenta: https://forms.studio (veja aqui)
 
 ??? note "Abra para ver o código da função completo"
-   ​```html
+   ​``` html
       <!DOCTYPE html>
       <html>
          <head>
