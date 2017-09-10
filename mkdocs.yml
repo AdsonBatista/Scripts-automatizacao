@@ -51,7 +51,7 @@ pages:
   - Início: index.md
   - Os Projetos: projetos.md
   - Projetos internos:
-    = Formulários HTML: Form_HTML.md
+    - Formulários HTML: Form_HTML.md
     - Tesouraria:
       - Introdução: tesouraria.md
       - Recibos: 
